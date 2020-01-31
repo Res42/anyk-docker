@@ -1,0 +1,26 @@
+name: Push to DockerHub
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+    - name: Push the ANYK image
+      run: |
+        docker-compose -f anyk/docker-compose.yml build
+        docker-compose -f anyk/docker-compose.yml push
+        
+    - name: Push the ANYK-19KATA image
+      run: |
+        docker-compose -f anyk-19kata/docker-compose.yml build
+        docker-compose -f anyk-19kata/docker-compose.yml push
