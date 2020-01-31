@@ -1,0 +1,16 @@
+name: Build Docker images
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the ANYK image
+        run: docker-compose -f anyk/docker-compose.yml build
+
+      - name: Build the ANYK-19KATA image
+        run: docker-compose -f anyk-19kata/docker-compose.yml build
