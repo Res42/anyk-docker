@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     openjdk-8-jre \
     && rm -rf /var/lib/apt/lists/*
 
+# Set keyboard layout to Hungarian
+RUN setxkbmap hu
+
 # Overwrite entrypoint bash file: removed the user creation script there
 COPY ./shared/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
