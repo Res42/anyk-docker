@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  anyk:
+    build:
+      context: ..
+      dockerfile: anyk/Dockerfile
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:2.94.0
+    ports:
+      - "3390:3389"
+      # - "2222:22"
+    shm_size: 1g
