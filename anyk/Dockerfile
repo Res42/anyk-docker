@@ -19,3 +19,5 @@ RUN echo "root:root" | chpasswd \
     # -u: create user settings
     && java -jar ~/abevjava_install.jar -s -u \
     && rm ~/abevjava_install.jar
+
+RUN chmod +x /usr/bin/docker-entrypoint.sh
