@@ -20,3 +20,6 @@ jobs:
 
       - name: Build the ANYK-19KATA image
         run: docker-compose -f anyk-19kata/docker-compose.yml build
+
+      - name: Build the ANYK-20KATA image
+        run: docker-compose -f anyk-20kata/docker-compose.yml build
