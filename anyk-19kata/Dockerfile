@@ -1,4 +1,4 @@
-FROM reisingeradam/anyk:2.94.0
+FROM reisingeradam/anyk:2.98.0
 LABEL maintainer="Adam Reisinger"
 
 # Download and install 19KATA plugin for ANYK
