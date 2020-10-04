@@ -4,6 +4,8 @@ Docker files for [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolt
 
 Built on <https://github.com/danielguerra69/ubuntu-xrdp>.
 
+DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
+
 ## Known issues
 
 ### How to change the keyboard layout to Hungarian
@@ -18,9 +20,9 @@ Built on <https://github.com/danielguerra69/ubuntu-xrdp>.
 
 ## How to use without downloading the repository
 
-Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:2.94.0` or `docker run -p 3390:3389 reisingeradam/anyk:2.94.0-19kata`.
+Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:2.98.0` or `docker run -p 3390:3389 reisingeradam/anyk:2.98.0-20kata`.
 
-Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:2.94.0-19kata`. With this the XML will be in the root home directory.
+Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:2.98.0-20kata`. With this the XML will be in the root home directory.
 
 ## How to run locally
 
@@ -30,5 +32,6 @@ Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389
 
 ## Docker images
 
-- ÁNYK only: <https://github.com/Res42/anyk-docker/blob/master/anyk>
-- ÁNYK and 19KATA (KATA for 2019): <https://github.com/Res42/anyk-docker/blob/master/anyk-19kata>
+- ÁNYK only: <https://github.com/Res42/anyk-docker/tree/master/anyk>
+- ÁNYK and 19KATA (KATA for 2019): <https://github.com/Res42/anyk-docker/tree/master/anyk-19kata>
+- ÁNYK and 20KATA (KATA for 2020): <https://github.com/Res42/anyk-docker/tree/master/anyk-20kata>
