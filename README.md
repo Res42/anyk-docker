@@ -16,7 +16,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 4. Remove the check from `Use system defaults`.
 5. Set the `Keyboard model` to `Generic 105-key PC (intl.)`.
 6. Add `Hungarian` to the `Keyboard layout` list.
-7. Remove `English (US)` to the `Keyboard layout` list.
+7. Remove `English (US)` from the `Keyboard layout` list.
 
 ## How to use without downloading the repository
 
@@ -35,3 +35,4 @@ Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389
 - ÁNYK only: <https://github.com/Res42/anyk-docker/tree/master/anyk>
 - ÁNYK and 19KATA (KATA for 2019): <https://github.com/Res42/anyk-docker/tree/master/anyk-19kata>
 - ÁNYK and 20KATA (KATA for 2020): <https://github.com/Res42/anyk-docker/tree/master/anyk-20kata>
+- ÁNYK and 20HIPA (Helyi iparuzesi ado for 2020): <https://github.com/Res42/anyk-docker/tree/master/anyk-20hipa>
