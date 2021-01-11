@@ -3,7 +3,7 @@ version: "3"
 services:
   anyk:
     build: .
-    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:2.98.0-19kata
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:latest-19kata
     ports:
       - "3390:3389"
       # - "2222:22"
