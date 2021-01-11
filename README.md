@@ -20,7 +20,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 
 ## How to use without downloading the repository
 
-Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` or `docker run -p 3390:3389 reisingeradam/anyk:20kata`.
+Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` or `docker run -p 3390:3389 reisingeradam/anyk:latest-20kata`.
 
 Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`. With this the XML will be in the root home directory.
 
