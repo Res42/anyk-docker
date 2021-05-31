@@ -26,3 +26,6 @@ jobs:
 
       - name: Build the ANYK-20HIPA image
         run: docker-compose -f anyk-20hipa/docker-compose.yml build
+
+      - name: Build the ANYK-IGAZOL image
+        run: docker-compose -f anyk-igazol/docker-compose.yml build
