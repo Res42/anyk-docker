@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0.0
+Type=Application
+Name=Switch to Hungarian keyboard
+Comment=Changes the keyboard layout to Hungarian
+Exec=/usr/bin/hun-keyboard.sh
+StartupNotify=false
+Terminal=false
+Hidden=false

@@ -4,10 +4,7 @@ LABEL maintainer="Adam Reisinger"
 # Install Java 8
 RUN apt-get update && apt-get install -y \
     openjdk-8-jre \
-    && rm -rf /var/lib/apt/lists/*
-
-# Overwrite entrypoint bash file: removed the user creation script there
-COPY ./shared/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+    && rm -rf /var/lib/apt/lists/* && apt-get clean -y
 
 RUN echo "root:root" | chpasswd \
     # Create 'Desktop' folder so the ANYK installer can create a shortcut there
@@ -19,4 +16,10 @@ RUN echo "root:root" | chpasswd \
     && java -jar ~/abevjava_install.jar -s -u \
     && rm ~/abevjava_install.jar
 
+COPY ./files/hun-keyboard.sh /usr/bin/hun-keyboard.sh
+COPY ./files/hun-keyboard.desktop /root/Desktop/hun-keyboard.desktop
+RUN chmod +x /usr/bin/hun-keyboard.sh
+
+# Overwrite entrypoint bash file: removed the user creation script there
+COPY ./files/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod +x /usr/bin/docker-entrypoint.sh
