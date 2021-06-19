@@ -3,7 +3,6 @@ LABEL maintainer="Adam Reisinger"
 
 # Install Java 8
 RUN apt-get update && apt-get install -y \
-    crudini \
     openjdk-8-jre \
     && rm -rf /var/lib/apt/lists/*
 

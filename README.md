@@ -1,41 +1,44 @@
+[![hu](https://img.shields.io/badge/lang-hu-green.svg)](https://github.com/Res42/anyk-docker/blob/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Res42/anyk-docker/blob/master/README.en.md)
+
 **Csak végső esetben. Előbb nézd meg, hogy az [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/)ban elérhető az adott nyomtatvány.**
 (Igen, a KATA bevallások elérhetőek.)
 
 # anyk-docker
 
-Docker files for [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/abevjava_install.html).
+Docker image-ek [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/abevjava_install.html)-hoz.
 
-Built on <https://github.com/danielguerra69/ubuntu-xrdp>.
+Az image-ek alapja: <https://github.com/danielguerra69/ubuntu-xrdp>.
 
 DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 
-## Known issues
+## Docker image-k
 
-### How to change the keyboard layout to Hungarian
+- ÁNYK: `reisingeradam/anyk:latest`
+- ÁNYK és 19KATA (2019-es KATA bevallás): `reisingeradam/anyk:latest-19kata`
+- ÁNYK és 20KATA (2020-as KATA bevallás): `reisingeradam/anyk:latest-20kata`
+- ÁNYK és 20HIPA (2020-as Helyi iparűzési adó): `reisingeradam/anyk:latest-20hipa`
+- ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb): `reisingeradam/anyk:latest-igazol`
 
-1. Click `Applications` in the top left corner of the desktop.
-2. Click `Settings` --> `Keyboard`.
-3. Switch to the `Layout` tab.
-4. Remove the check from `Use system defaults`.
-5. Set the `Keyboard model` to `Generic 105-key PC (intl.)`.
-6. Add `Hungarian` to the `Keyboard layout` list.
-7. Remove `English (US)` from the `Keyboard layout` list.
+## Használat
 
-## How to use without downloading the repository
+Csinálj egy docker container-t az alábbi parancsokhoz hasonlóan: `docker run -p 3390:3389 reisingeradam/anyk:latest` vagy `docker run -p 3390:3389 reisingeradam/anyk:latest-20kata`.
 
-Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` or `docker run -p 3390:3389 reisingeradam/anyk:latest-20kata`.
+Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`.
+Így bekerül a fájl a root home mappába.
 
-Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`. With this the XML will be in the root home directory.
+Csatlakozz a container-hez távoli asztallal. A "számítógép" címe `localhost:3990`.
 
-## How to run locally
+Felhasználónév/jelszó: `root`/`root`.
 
-1. Start one of the docker images with `docker-compose up`.
-2. Connect with a remote desktop app to `localhost:3990` (the port may be changed in the docker-compose.yml)
-3. User/password: `root`/`root`
+## Ismert problémák
 
-## Docker images
+### Magyar billentyűkiosztás beállítása
 
-- ÁNYK only: <https://github.com/Res42/anyk-docker/tree/master/anyk>
-- ÁNYK and 19KATA (KATA for 2019): <https://github.com/Res42/anyk-docker/tree/master/anyk-19kata>
-- ÁNYK and 20KATA (KATA for 2020): <https://github.com/Res42/anyk-docker/tree/master/anyk-20kata>
-- ÁNYK and 20HIPA (Helyi iparuzesi ado for 2020): <https://github.com/Res42/anyk-docker/tree/master/anyk-20hipa>
+1. Bal felső sarokban kattints az `Applications` menüre.
+2. `Settings` → `Keyboard` almenü.
+3. `Layout` fül.
+4. `Use system defaults` elől szedd ki a pipát.
+5. `Keyboard model`-t állítsd `Generic 105-key PC (intl.)`-re.
+6. `Keyboard layout`-ot állítds `Hungarian`-ra.
+7. Töröld az `English (US)`-t a `Keyboard layout` listából.
