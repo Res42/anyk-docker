@@ -12,7 +12,7 @@ Az image-ek alapja: <https://github.com/danielguerra69/ubuntu-xrdp>.
 
 DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 
-## Docker image-k
+## Docker image-ek
 
 - ÁNYK: `reisingeradam/anyk:latest`
 - ÁNYK és 19KATA (2019-es KATA bevallás): `reisingeradam/anyk:latest-19kata`
