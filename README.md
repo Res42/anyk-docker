@@ -17,6 +17,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 - ÁNYK: `reisingeradam/anyk:latest`
 - ÁNYK és 19KATA (2019-es KATA bevallás): `reisingeradam/anyk:latest-19kata`
 - ÁNYK és 20KATA (2020-as KATA bevallás): `reisingeradam/anyk:latest-20kata`
+- ÁNYK és 19HIPA (2019-es Helyi iparűzési adó): `reisingeradam/anyk:latest-19hipa`
 - ÁNYK és 20HIPA (2020-as Helyi iparűzési adó): `reisingeradam/anyk:latest-20hipa`
 - ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb): `reisingeradam/anyk:latest-igazol`
 
