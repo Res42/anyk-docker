@@ -31,6 +31,11 @@ jobs:
           docker-compose -f anyk-20kata/docker-compose.yml build
           docker-compose -f anyk-20kata/docker-compose.yml push
 
+      - name: Push the ANYK-19HIPA image
+        run: |
+          docker-compose -f anyk-19hipa/docker-compose.yml build
+          docker-compose -f anyk-19hipa/docker-compose.yml push
+
       - name: Push the ANYK-20HIPA image
         run: |
           docker-compose -f anyk-20hipa/docker-compose.yml build
