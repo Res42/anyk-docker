@@ -1,5 +1,5 @@
 FROM reisingeradam/anyk:latest
-LABEL maintainer="Adam Reisinger"
+LABEL maintainer="Dezso Burjan"
 
 # Download and install 19HIPA plugin for ANYK
 RUN wget https://nav.gov.hu/data/cms487079/NAV_19HIPA.jar -P ~ \
