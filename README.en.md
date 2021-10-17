@@ -4,10 +4,10 @@
 **Only as a last resort. First check if the form can be submitted with the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).**
 (Yes, the KATA form can be submitted there.)
 
-To determine if the form you would like to use is aviable to be submitted via the ONYA, look up the form at the [NAV website](https://nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):
+To determine if the form you would like to use is aviable to be submitted via the ONYA, look up the form at the [NAV website](https://nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
 * if the result shows a link in red that says "Online felületen is beküldhető" the form should be submitted via the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).
     e.g.: ![form available at ONYA](https://user-images.githubusercontent.com/2495806/137081509-c4195714-f842-4e8c-8f92-da034d06e4f4.png)
-* if there is no such link the form can only be submitted via ÁNYK.
+* if there is no such link the form can only be submitted via ÁNYK.  
     e.g.: ![form available only for ÁNYK](https://user-images.githubusercontent.com/2495806/137081596-247d9e58-a0cc-4dea-a5a9-346a7ee48f6c.png)
 
 # anyk-docker
