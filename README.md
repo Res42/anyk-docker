@@ -10,6 +10,8 @@ Ha szeretnéd megnézn, hogy a nyomtatványod elérhető-e ONYA-n keresztül, ke
 * ha nincs ilyen link, akkor marad az ÁNYK.  
     pl.: ![csak ÁNYK-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/137081596-247d9e58-a0cc-4dea-a5a9-346a7ee48f6c.png)
 
+Csak olyan ÁNYK űrlapokhoz készült merge requestet fogadunk el, amit nem lehet az ONYA-ból elérni.
+
 # anyk-docker
 
 Docker image-ek [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/abevjava_install.html)-hoz.
