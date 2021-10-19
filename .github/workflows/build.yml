@@ -16,19 +16,19 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build the ANYK image
-        run: docker-compose -f anyk/docker-compose.yml build
+        run: docker compose -f anyk/docker-compose.yml build
 
       - name: Build the ANYK-19KATA image
-        run: docker-compose -f anyk-19kata/docker-compose.yml build
+        run: docker compose -f anyk-19kata/docker-compose.yml build
 
       - name: Build the ANYK-20KATA image
-        run: docker-compose -f anyk-20kata/docker-compose.yml build
+        run: docker compose -f anyk-20kata/docker-compose.yml build
 
       - name: Build the ANYK-19HIPA image
-        run: docker-compose -f anyk-19hipa/docker-compose.yml build
+        run: docker compose -f anyk-19hipa/docker-compose.yml build
 
       - name: Build the ANYK-20HIPA image
-        run: docker-compose -f anyk-20hipa/docker-compose.yml build
+        run: docker compose -f anyk-20hipa/docker-compose.yml build
 
       - name: Build the ANYK-IGAZOL image
-        run: docker-compose -f anyk-igazol/docker-compose.yml build
+        run: docker compose -f anyk-igazol/docker-compose.yml build
