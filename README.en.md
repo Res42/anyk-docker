@@ -27,6 +27,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>.
 - ÁNYK and 20KATA (KATA for 2020): `reisingeradam/anyk:latest-20kata`
 - ÁNYK and 19HIPA (Local business tax for 2019): `reisingeradam/anyk:latest-19hipa`
 - ÁNYK and 20HIPA (Local business tax for 2020): `reisingeradam/anyk:latest-20hipa`
+- ÁNYK and 21HIPA (Local business tax for 2021): `reisingeradam/anyk:latest-21hipa`
 - ANYK and IGAZOL (Tax agency certificates): `reisingeradam/anyk:latest-igazol`
 
 ## How to use
