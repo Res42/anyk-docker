@@ -4,7 +4,7 @@
 **Only as a last resort. First check if the form can be submitted with the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).**
 (Yes, the KATA form can be submitted there.)
 
-To determine if the form you would like to use is available to be submitted via the ONYA, look up the form at the [NAV website](https://nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
+To determine if the form you would like to use is available to be submitted via the ONYA, look up the form at the [NAV website](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
 * if the result shows a link in red that says "Online felületen is beküldhető" the form should be submitted via the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).  
     e.g.: ![form available at ONYA](https://user-images.githubusercontent.com/2495806/137081509-c4195714-f842-4e8c-8f92-da034d06e4f4.png)
 * if there is no such link the form can only be submitted via ÁNYK.  
@@ -37,7 +37,7 @@ Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` o
 Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`.
 With this the XML will be in the root home directory.
 
-Connect with a remote desktop app to `localhost:3990` (the port may be changed in the docker run command or in the docker-compose.yml).
+Connect with a remote desktop app to `localhost:3390` (the port may be changed in the docker run command or in the docker-compose.yml).
 
 User/password: `root`/`root`.
 

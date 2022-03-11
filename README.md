@@ -4,7 +4,7 @@
 **Csak végső esetben. Előbb nézd meg, hogy az [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/)ban elérhető az adott nyomtatvány.**
 (Igen, a KATA bevallások elérhetőek.)
 
-Ha szeretnéd megnézni, hogy a nyomtatványod elérhető-e ONYA-n keresztül, keress rá a [NAV weboldalán](https://nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
+Ha szeretnéd megnézni, hogy a nyomtatványod elérhető-e ONYA-n keresztül, keress rá a [NAV weboldalán](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
 * ha a találat mellett látsz egy "Online felületen is beküldhető" piros színű linket, add be a [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/)-on.  
     pl.: ![ONYA-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/137081509-c4195714-f842-4e8c-8f92-da034d06e4f4.png)
 * ha nincs ilyen link, akkor marad az ÁNYK.  
