@@ -36,7 +36,7 @@ Csinálj egy docker container-t az alábbi parancsokhoz hasonlóan: `docker run 
 Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`.
 Így bekerül a fájl a root home mappába.
 
-Csatlakozz a container-hez távoli asztallal. A "számítógép" címe `localhost:3990`.
+Csatlakozz a container-hez távoli asztallal. A "számítógép" címe `localhost:3390`.
 
 Felhasználónév/jelszó: `root`/`root`.
 
