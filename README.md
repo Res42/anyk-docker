@@ -5,10 +5,10 @@
 (Igen, a KATA bevallások elérhetőek.)
 
 Ha szeretnéd megnézni, hogy a nyomtatványod elérhető-e ONYA-n keresztül, keress rá a [NAV weboldalán](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
-* ha a találat mellett látsz egy "Online felületen is beküldhető" piros színű linket, add be a [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/)-on.  
-    pl.: ![ONYA-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/137081509-c4195714-f842-4e8c-8f92-da034d06e4f4.png)
-* ha nincs ilyen link, akkor marad az ÁNYK.  
-    pl.: ![csak ÁNYK-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/137081596-247d9e58-a0cc-4dea-a5a9-346a7ee48f6c.png)
+- ha a nyomtatvány részletes oldalán látod az "Online Nyomtatványkitöltő Alkalmazásban (ONYA) is elérhető" gombot, akkor kattints rá és add be ott.  
+  ![ONYA-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/159995313-2e5b39d9-5230-4ee7-ab01-207da801f585.png)
+- ha nincs ilyen, akkor marad az ÁNYK.  
+  ![csak ÁNYK-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/159995784-5e1e22b0-f2d0-4197-95c1-6c1ae004f4e7.png)
 
 Csak olyan ÁNYK nyomtatványhoz készült merge requestet fogadunk el, amit nem lehet az ONYA-ból elérni.
 
@@ -44,6 +44,12 @@ Felhasználónév/jelszó: `root`/`root`.
 ## Ismert problémák
 
 ### Magyar billentyűkiosztás beállítása
+
+Lásd: <https://github.com/Res42/anyk-docker/issues/2>
+
+Az asztalon található egy ikon `Switch to Hungarian keyboard` néven, erre kattintva átvált magyar billentyűzetkiosztásra a rendszer.
+
+Egyébként így lehet beállítani:
 
 1. Bal felső sarokban kattints az `Applications` menüre.
 2. `Settings` → `Keyboard` almenü.
