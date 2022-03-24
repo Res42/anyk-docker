@@ -10,9 +10,11 @@ RUN echo "root:root" | chpasswd \
     # Create 'Desktop' folder so the ANYK installer can create a shortcut there
     && mkdir ~/Desktop \
     # Download and install ANYK
-    && wget https://www.nav.gov.hu/data/cms36637/abevjava_install.jar -P ~ \
+    && wget https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava -O ~/abevjava_install.jar \
     # -s: silent (non-gui) install
     # -u: create user settings
+    && ls -la \
+    && ls -la ~ \
     && java -jar ~/abevjava_install.jar -s -u \
     && rm ~/abevjava_install.jar
 
