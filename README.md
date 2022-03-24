@@ -4,10 +4,11 @@
 **Csak végső esetben. Előbb nézd meg, hogy az [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/)ban elérhető az adott nyomtatvány.**
 (Igen, a KATA bevallások elérhetőek.)
 
-Ha szeretnéd megnézni, hogy a nyomtatványod elérhető-e ONYA-n keresztül, keress rá a [NAV weboldalán](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
-- ha a nyomtatvány részletes oldalán látod az "Online Nyomtatványkitöltő Alkalmazásban (ONYA) is elérhető" gombot, akkor kattints rá és add be ott.  
+Ha szeretnéd megnézni, hogy a nyomtatványod elérhető-e ONYA-n keresztül, keress rá a [NAV weboldalán](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):
+
+- ha a nyomtatvány részletes oldalán látod az "Online Nyomtatványkitöltő Alkalmazásban (ONYA) is elérhető" gombot, add be a [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/)-on.
   ![ONYA-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/159995313-2e5b39d9-5230-4ee7-ab01-207da801f585.png)
-- ha nincs ilyen, akkor marad az ÁNYK.  
+- ha nincs ilyen gomb, akkor marad az ÁNYK.  
   ![csak ÁNYK-ban beküldhető nyomtatvány](https://user-images.githubusercontent.com/2495806/159995784-5e1e22b0-f2d0-4197-95c1-6c1ae004f4e7.png)
 
 Csak olyan ÁNYK nyomtatványhoz készült merge requestet fogadunk el, amit nem lehet az ONYA-ból elérni.
