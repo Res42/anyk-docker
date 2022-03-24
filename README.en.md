@@ -4,11 +4,12 @@
 **Only as a last resort. First check if the form can be submitted with the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).**
 (Yes, the KATA form can be submitted there.)
 
-To determine if the form you would like to use is available to be submitted via the ONYA, look up the form at the [NAV website](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):  
-* if the result shows a link in red that says "Online felületen is beküldhető" the form should be submitted via the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).  
-    e.g.: ![form available at ONYA](https://user-images.githubusercontent.com/2495806/137081509-c4195714-f842-4e8c-8f92-da034d06e4f4.png)
-* if there is no such link the form can only be submitted via ÁNYK.  
-    e.g.: ![form available only for ÁNYK](https://user-images.githubusercontent.com/2495806/137081596-247d9e58-a0cc-4dea-a5a9-346a7ee48f6c.png)
+To determine if the form you would like to use is available to be submitted via the ONYA, look up the form at the [NAV website](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav):
+
+- if there is a button on the form's details page that says "Online Nyomtatványkitöltő Alkalmazásban (ONYA) is elérhető" the form should be submitted via the [Online Nyomtatványkitöltő Alkalmazás](https://onya.nav.gov.hu/).  
+   e.g.: ![form available at ONYA](https://user-images.githubusercontent.com/2495806/159995313-2e5b39d9-5230-4ee7-ab01-207da801f585.png)
+- if there is no such button the form can only be submitted via ÁNYK.  
+   e.g.: ![form available only for ÁNYK](https://user-images.githubusercontent.com/2495806/159995784-5e1e22b0-f2d0-4197-95c1-6c1ae004f4e7.png)
 
 We will only accept a merge request for a new ÁNYK form which cannot be submitted with ONYA.
 
@@ -44,6 +45,12 @@ User/password: `root`/`root`.
 ## Known issues
 
 ### How to change the keyboard layout to Hungarian
+
+See: <https://github.com/Res42/anyk-docker/issues/2>
+
+There is an icon on the desktop named `Switch to Hungarian keyboard`, if you use this icon then the system will change the keyboard layout to Hungarian.
+
+Or if you prefer setting it manually:
 
 1. Click `Applications` in the top left corner of the desktop.
 2. Click `Settings` → `Keyboard`.
