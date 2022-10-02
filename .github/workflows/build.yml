@@ -29,9 +29,12 @@ jobs:
 
       - name: Build the ANYK-20HIPA image
         run: docker compose -f anyk-20hipa/docker-compose.yml build
-        
+
       - name: Build the ANYK-21HIPA image
         run: docker compose -f anyk-21hipa/docker-compose.yml build
 
       - name: Build the ANYK-IGAZOL image
         run: docker compose -f anyk-igazol/docker-compose.yml build
+
+      - name: Build the ANYK-2258 image
+        run: docker compose -f anyk-2258/docker-compose.yml build

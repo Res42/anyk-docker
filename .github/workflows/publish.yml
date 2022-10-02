@@ -40,7 +40,7 @@ jobs:
         run: |
           docker compose -f anyk-20hipa/docker-compose.yml build
           docker compose -f anyk-20hipa/docker-compose.yml push
-          
+
       - name: Push the ANYK-21HIPA image
         run: |
           docker compose -f anyk-21hipa/docker-compose.yml build
@@ -50,3 +50,8 @@ jobs:
         run: |
           docker compose -f anyk-igazol/docker-compose.yml build
           docker compose -f anyk-igazol/docker-compose.yml push
+
+      - name: Push the ANYK-2258 image
+        run: |
+          docker compose -f anyk-2258/docker-compose.yml build
+          docker compose -f anyk-2258/docker-compose.yml push
