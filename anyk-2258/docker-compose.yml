@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  anyk:
+    build: .
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:latest-2258
+    ports:
+      - "3390:3389"
+      # - "2222:22"
+    shm_size: 1g
