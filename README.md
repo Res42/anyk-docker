@@ -29,6 +29,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 - ÁNYK és 19HIPA (2019-es Helyi iparűzési adó): `reisingeradam/anyk:latest-19hipa`
 - ÁNYK és 20HIPA (2020-as Helyi iparűzési adó): `reisingeradam/anyk:latest-20hipa`
 - ÁNYK és 21HIPA (2021-es Helyi iparűzési adó): `reisingeradam/anyk:latest-21hipa`
+- ÁNYK és 22HIPAK (2022-es Helyi iparűzési adó): `reisingeradam/anyk:latest-22hipak`
 - ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb): `reisingeradam/anyk:latest-igazol`
 - ANYK és 2258 (2022-es 58-as nyomtatvány): `reisingeradam/anyk:latest-2258`
 
