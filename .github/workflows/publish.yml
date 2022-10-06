@@ -21,16 +21,6 @@ jobs:
           docker compose -f anyk/docker-compose.yml build
           docker compose -f anyk/docker-compose.yml push
 
-      - name: Push the ANYK-19KATA image
-        run: |
-          docker compose -f anyk-19kata/docker-compose.yml build
-          docker compose -f anyk-19kata/docker-compose.yml push
-
-      - name: Push the ANYK-20KATA image
-        run: |
-          docker compose -f anyk-20kata/docker-compose.yml build
-          docker compose -f anyk-20kata/docker-compose.yml push
-
       - name: Push the ANYK-19HIPA image
         run: |
           docker compose -f anyk-19hipa/docker-compose.yml build
@@ -50,11 +40,6 @@ jobs:
         run: |
           docker compose -f anyk-igazol/docker-compose.yml build
           docker compose -f anyk-igazol/docker-compose.yml push
-
-      - name: Push the ANYK-2258 image
-        run: |
-          docker compose -f anyk-2258/docker-compose.yml build
-          docker compose -f anyk-2258/docker-compose.yml push
 
       - name: Push the ANYK-22HIPAK image
         run: |
