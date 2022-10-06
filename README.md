@@ -24,20 +24,17 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 ## Docker image-ek
 
 - ÁNYK: `reisingeradam/anyk:latest`
-- ÁNYK és 19KATA (2019-es KATA bevallás): `reisingeradam/anyk:latest-19kata`
-- ÁNYK és 20KATA (2020-as KATA bevallás): `reisingeradam/anyk:latest-20kata`
 - ÁNYK és 19HIPA (2019-es Helyi iparűzési adó): `reisingeradam/anyk:latest-19hipa`
 - ÁNYK és 20HIPA (2020-as Helyi iparűzési adó): `reisingeradam/anyk:latest-20hipa`
 - ÁNYK és 21HIPA (2021-es Helyi iparűzési adó): `reisingeradam/anyk:latest-21hipa`
 - ÁNYK és 22HIPAK (2022-es Helyi iparűzési adó): `reisingeradam/anyk:latest-22hipak`
 - ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb): `reisingeradam/anyk:latest-igazol`
-- ANYK és 2258 (2022-es 58-as nyomtatvány): `reisingeradam/anyk:latest-2258`
 
 ## Használat
 
-Csinálj egy docker container-t az alábbi parancsokhoz hasonlóan: `docker run -p 3390:3389 reisingeradam/anyk:latest` vagy `docker run -p 3390:3389 reisingeradam/anyk:latest-20kata`.
+Csinálj egy docker container-t az alábbi parancsokhoz hasonlóan: `docker run -p 3390:3389 reisingeradam/anyk:latest` vagy `docker run -p 3390:3389 reisingeradam/anyk:latest-22hipak`.
 
-Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`.
+Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-22hipak`.
 Így bekerül a fájl a root home mappába.
 
 Csatlakozz a container-hez távoli asztallal. A "számítógép" címe `localhost:3390`.

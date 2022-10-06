@@ -24,20 +24,17 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>.
 ## Docker images
 
 - ÁNYK only: `reisingeradam/anyk:latest`
-- ÁNYK and 19KATA (KATA for 2019): `reisingeradam/anyk:latest-19kata`
-- ÁNYK and 20KATA (KATA for 2020): `reisingeradam/anyk:latest-20kata`
 - ÁNYK and 19HIPA (Local business tax for 2019): `reisingeradam/anyk:latest-19hipa`
 - ÁNYK and 20HIPA (Local business tax for 2020): `reisingeradam/anyk:latest-20hipa`
 - ÁNYK and 21HIPA (Local business tax for 2021): `reisingeradam/anyk:latest-21hipa`
 - ÁNYK and 22HIPAK (Local business tax for 2022): `reisingeradam/anyk:latest-22hipak`
 - ANYK and IGAZOL (Tax agency certificates): `reisingeradam/anyk:latest-igazol`
-- ANYK and 2258 (Form 58 for 2022): `reisingeradam/anyk:latest-2258`
 
 ## How to use
 
-Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` or `docker run -p 3390:3389 reisingeradam/anyk:latest-20kata`.
+Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` or `docker run -p 3390:3389 reisingeradam/anyk:latest-22hipak`.
 
-Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-20kata`.
+Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-22hipak`.
 With this the XML will be in the root home directory.
 
 Connect with a remote desktop app to `localhost:3390` (the port may be changed in the docker run command or in the docker-compose.yml).
