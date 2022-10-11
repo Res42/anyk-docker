@@ -20,7 +20,7 @@ RUN echo "root:root" | chpasswd \
 
 COPY ./files/hun-keyboard.sh /usr/bin/hun-keyboard.sh
 COPY ./files/hun-keyboard.desktop /root/Desktop/hun-keyboard.desktop
-RUN chmod +x /usr/bin/hun-keyboard.sh
+RUN chmod +x /usr/bin/hun-keyboard.sh /root/Desktop/hun-keyboard.desktop
 
 # Overwrite entrypoint bash file: removed the user creation script there
 COPY ./files/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
