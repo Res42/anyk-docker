@@ -16,6 +16,14 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Update Docker Hub description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          repository: reisingeradam/anyk
+          readme-filepath: ./README.en.md
+
       - name: Push the ANYK image
         run: |
           docker compose -f anyk/docker-compose.yml build
