@@ -32,3 +32,6 @@ jobs:
 
       - name: Build the ANYK-22HIPAK image
         run: docker compose -f anyk-22hipak/docker-compose.yml build
+
+      - name: Build the ANYK-OEPEUCARD image
+        run: docker compose -f anyk-oepeucard/docker-compose.yml build

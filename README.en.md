@@ -29,6 +29,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>.
 - ÁNYK and 21HIPA (Local business tax for 2021): `reisingeradam/anyk:latest-21hipa`
 - ÁNYK and 22HIPAK (Local business tax for 2022): `reisingeradam/anyk:latest-22hipak`
 - ANYK and IGAZOL (Tax agency certificates): `reisingeradam/anyk:latest-igazol`
+- ANYK and OEPEUCARD (European Health Insurance Card): `reisingeradam/anyk:latest-oepeucard`
 
 ## How to use
 

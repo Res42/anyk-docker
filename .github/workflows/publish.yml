@@ -45,3 +45,8 @@ jobs:
         run: |
           docker compose -f anyk-22hipak/docker-compose.yml build
           docker compose -f anyk-22hipak/docker-compose.yml push
+
+      - name: Push the ANYK-OEPEUCARD image
+        run: |
+          docker compose -f anyk-oepeucard/docker-compose.yml build
+          docker compose -f anyk-oepeucard/docker-compose.yml push
