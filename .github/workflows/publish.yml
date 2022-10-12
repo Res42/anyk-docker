@@ -9,12 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: azure/docker-login@v1
+      - uses: docker/login-action@v2
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Update Docker Hub description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          repository: reisingeradam/anyk
+          readme-filepath: ./README.en.md
 
       - name: Push the ANYK image
         run: |
@@ -45,3 +53,8 @@ jobs:
         run: |
           docker compose -f anyk-22hipak/docker-compose.yml build
           docker compose -f anyk-22hipak/docker-compose.yml push
+
+      - name: Push the ANYK-OEPEUCARD image
+        run: |
+          docker compose -f anyk-oepeucard/docker-compose.yml build
+          docker compose -f anyk-oepeucard/docker-compose.yml push

@@ -60,4 +60,7 @@ uuidgen > /etc/machine-id
 # set keyboard for all sh users
 echo "export QT_XKB_CONFIG_ROOT=/usr/share/X11/locale" >> /etc/profile
 
+# Use default desktop panel configuration
+mv /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+
 exec "$@"
