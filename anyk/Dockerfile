@@ -3,7 +3,9 @@ LABEL maintainer="Adam Reisinger"
 
 # Install Java 8
 RUN apt-get update && apt-get install -y \
-    openjdk-8-jre \
+    openjdk-8-jre tzdata \
+    && ln -fs /usr/share/zoneinfo/Europe/Budapest /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/* && apt-get clean -y
 
 RUN echo "root:root" | chpasswd \
