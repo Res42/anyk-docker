@@ -1,8 +1,8 @@
 FROM danielguerra/ubuntu-xrdp:18.04
 LABEL maintainer="Adam Reisinger"
 
-# Install Java 8
-RUN apt-get update && apt-get install -y \
+# Update (Firefox, CA), install packages (Java 8 for ANYK, tzdata for timezone) and set timezone
+RUN apt-get update && apt-get --only-upgrade install firefox ca-certificates && apt-get install -y \
     openjdk-8-jre tzdata \
     && ln -fs /usr/share/zoneinfo/Europe/Budapest /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
