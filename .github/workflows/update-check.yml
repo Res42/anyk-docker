@@ -19,7 +19,7 @@ jobs:
 
       - name: Get latest ANYK version number
         id: latestanykversion
-        uses: Teko012/get-xml-info_fork_mavrosxristoforos@66d740a01d74a260037146b6cbf252d272f066f9
+        uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: 'anyk.xml'
           xpath: '/adat/keretprogram/verzio'
