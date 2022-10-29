@@ -40,7 +40,9 @@ jobs:
           branch: bot/keepalive-update-check
           create_branch: true
           push_options: '--force'
-          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           file_pattern: '.github/anyk-version-check-time.txt'
 
       - name: Update version file
@@ -53,8 +55,8 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update ANYK version
-          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           base: master
           branch: bot/update-anyk-version
           delete-branch: true
