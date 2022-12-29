@@ -35,3 +35,6 @@ jobs:
 
       - name: Build the ANYK-OEPEUCARD image
         run: docker compose -f anyk-oepeucard/docker-compose.yml build
+
+      - name: Build the ANYK-OEP-EGT-TAGALLAM image
+        run: docker compose -f anyk-oep-egt-tagallam/docker-compose.yml build

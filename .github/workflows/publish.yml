@@ -58,3 +58,8 @@ jobs:
         run: |
           docker compose -f anyk-oepeucard/docker-compose.yml build
           docker compose -f anyk-oepeucard/docker-compose.yml push
+
+      - name: Push the ANYK-OEP-EGT-TAGALLAM image
+        run: |
+          docker compose -f anyk-oep-egt-tagallam/docker-compose.yml build
+          docker compose -f anyk-oep-egt-tagallam/docker-compose.yml push

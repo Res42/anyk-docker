@@ -30,6 +30,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 - ÁNYK és 22HIPAK (2022-es Helyi iparűzési adó): `reisingeradam/anyk:latest-22hipak`
 - ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb): `reisingeradam/anyk:latest-igazol`
 - ANYK és OEPEUCARD (Európai Egészségbiztosítási Kártya): `reisingeradam/anyk:latest-oepeucard`
+- ANYK és OEP-EGT-TAGALLAM (Bejelentő lap TAJ számmal rendelkező magyar állampolgár részére, aki EGT tagállamban biztosított személy): `reisingeradam/anyk:latest-oep-egt-tagallam`
 
 ## Használat
 
