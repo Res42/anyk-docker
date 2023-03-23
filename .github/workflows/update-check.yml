@@ -15,7 +15,7 @@ jobs:
           ref: 'master'
 
       - name: Download ANYK repository index
-        run: curl -L https://nav.gov.hu/abev/abev_new -o anyk.xml
+        run: curl -L https://nav.gov.hu/api/declarationForms/anyk -o anyk.xml
 
       - name: Get latest ANYK version number
         id: latestanykversion
