@@ -1,0 +1,69 @@
+name: Check for ANYK OEP plugin update
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 0 * * *'
+
+jobs:
+  check:
+    strategy:
+      matrix:
+        target: ["OEP_igenylolap_eu_kartyahoz","OEP_egt_tagallam"]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: 'master'
+
+      - name: Download OEP repository index
+        run: curl -L https://hkp.neak.gov.hu/nyomtatvanyok/ -o oep.xml
+
+      - name: Get latest OEP version number for ${{ matrix.target }}
+        id: oep_remote_version
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'oep.xml'
+          xpath: '/adat/nyomtatvany[rovidnev="${{ matrix.target }}"]/verzio'
+
+      - name: Get current local version number for ${{ matrix.target }}
+        id: oep_local_version
+        run: echo "version=$(head -n 1 builds/plugin/${{ matrix.target }}.version)" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Update check time
+        run: echo $(date -u) > '.github/${{ matrix.target }}-version-check-time.txt'
+        shell: bash
+
+      - name: Push latest check time
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update latest version check time
+          branch: bot/keepalive-update-check
+          create_branch: true
+          push_options: '--force'
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          file_pattern: '.github/${{ matrix.target }}-version-check-time.txt'
+
+      - name: Update ${{ matrix.target }} version file
+        if: ${{steps.oep_remote_version.outputs.info > steps.oep_local_version.outputs.version}}
+        run: echo ${{ steps.oep_remote_version.outputs.info }} > 'builds/plugin/${{ matrix.target }}.version'
+        shell: bash
+
+      - name: Create pull request
+        if: ${{steps.oep_remote_version.outputs.info > steps.oep_local_version.outputs.version}}
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update ANYK ${{ matrix.target }} plugin version
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          base: master
+          branch: bot/update-anyk-${{ matrix.target }}-version
+          delete-branch: true
+          title: Update ANYK ${{ matrix.target }} plugin version
+          body: Update ANYK ${{ matrix.target }} plugin to the latest version.
+          add-paths: builds/plugin/${{ matrix.target }}.version
