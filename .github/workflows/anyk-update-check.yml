@@ -26,11 +26,11 @@ jobs:
 
       - name: Get current local version number
         id: localversion
-        run: echo "version=$(head -n 1 anyk/files/anyk-version.txt)" >> $GITHUB_OUTPUT
+        run: echo "version=$(head -n 1 builds/base.version)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Update check time
-        run: echo $(date -u) > '.github/anyk-version-check-time.txt'
+        run: echo $(date -u) > '.github/base-version-check-time.txt'
         shell: bash
 
       - name: Push latest check time
@@ -43,11 +43,11 @@ jobs:
           commit_user_name: github-actions[bot]
           commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          file_pattern: '.github/anyk-version-check-time.txt'
+          file_pattern: '.github/base-version-check-time.txt'
 
       - name: Update version file
         if: ${{steps.latestanykversion.outputs.info > steps.localversion.outputs.version}}
-        run: echo ${{ steps.latestanykversion.outputs.info }} > 'anyk/files/anyk-version.txt'
+        run: echo ${{ steps.latestanykversion.outputs.info }} > 'builds/base.version'
         shell: bash
 
       - name: Create pull request
@@ -62,4 +62,4 @@ jobs:
           delete-branch: true
           title: Update ANYK version
           body: Update ANYK to the latest version.
-          add-paths: anyk/files/anyk-version.txt
+          add-paths: builds/base.version
