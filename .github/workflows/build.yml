@@ -1,6 +1,7 @@
 name: Build Docker images
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -9,32 +10,51 @@ on:
       - master
 
 jobs:
-  build:
+  build-base:
+    strategy:
+      matrix:
+        desktop: ["kde", "mate", "xfce"]
+        base: ["base"]
+
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
 
-      - name: Build the ANYK image
-        run: docker compose -f anyk/docker-compose.yml build
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
 
-      - name: Build the ANYK-19HIPA image
-        run: docker compose -f anyk-19hipa/docker-compose.yml build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Build the ANYK-20HIPA image
-        run: docker compose -f anyk-20hipa/docker-compose.yml build
+      - name: Build the ${{ matrix.base }} ${{ matrix.desktop }} image
+        run: docker compose -f builds/${{ matrix.base }}.yml --env-file builds/env/${{ matrix.desktop }}.env build
 
-      - name: Build the ANYK-21HIPA image
-        run: docker compose -f anyk-21hipa/docker-compose.yml build
+  build-plugins:
+    needs: build-base
+    strategy:
+      matrix:
+        desktop: ["kde", "mate", "xfce"]
+        plugin: ["NAV_19HIPA", "NAV_20HIPA", "NAV_21HIPA", "NAV_22HIPAK", "NAV_IGAZOL", "OEP_egt_tagallam", "OEP_igenylolap_eu_kartyahoz"]
 
-      - name: Build the ANYK-IGAZOL image
-        run: docker compose -f anyk-igazol/docker-compose.yml build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
 
-      - name: Build the ANYK-22HIPAK image
-        run: docker compose -f anyk-22hipak/docker-compose.yml build
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
 
-      - name: Build the ANYK-OEPEUCARD image
-        run: docker compose -f anyk-oepeucard/docker-compose.yml build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Build the ANYK-OEP-EGT-TAGALLAM image
-        run: docker compose -f anyk-oep-egt-tagallam/docker-compose.yml build
+      - name: Build the ${{ matrix.plugin }} ${{ matrix.desktop }} image
+        run: docker compose -f builds/plugin/${{ matrix.plugin }}.yml --env-file builds/env/${{ matrix.desktop }}.env build

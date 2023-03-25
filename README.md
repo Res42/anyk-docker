@@ -17,46 +17,32 @@ Csak olyan ÁNYK nyomtatványhoz készült merge requestet fogadunk el, amit nem
 
 Docker image-ek [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/abevjava_install.html)-hoz.
 
-Az image-ek alapja: <https://github.com/danielguerra69/ubuntu-xrdp>.
+Az image-ek alapja: <https://github.com/linuxserver/docker-rdesktop>.
 
 DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 
 ## Docker image-ek
 
-- ÁNYK: `reisingeradam/anyk:latest`
-- ÁNYK és 19HIPA (2019-es Helyi iparűzési adó): `reisingeradam/anyk:latest-19hipa`
-- ÁNYK és 20HIPA (2020-as Helyi iparűzési adó): `reisingeradam/anyk:latest-20hipa`
-- ÁNYK és 21HIPA (2021-es Helyi iparűzési adó): `reisingeradam/anyk:latest-21hipa`
-- ÁNYK és 22HIPAK (2022-es Helyi iparűzési adó): `reisingeradam/anyk:latest-22hipak`
-- ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb): `reisingeradam/anyk:latest-igazol`
-- ANYK és OEPEUCARD (Európai Egészségbiztosítási Kártya): `reisingeradam/anyk:latest-oepeucard`
-- ANYK és OEP-EGT-TAGALLAM (Bejelentő lap TAJ számmal rendelkező magyar állampolgár részére, aki EGT tagállamban biztosított személy): `reisingeradam/anyk:latest-oep-egt-tagallam`
+Az ubuntu multiplatform (amd64, arm64) imagek igény szerint elérhetőek 3 féle desktop felülettel (Xfce, KDE és MATE) a kővetkező image tag-ekkel a `reisingeradam/anyk` DockerHub repositoryban:
+
+| Leírás                                                                                                                              | Xfce                     | KDE                     | MATE                     |
+|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------|--------------------------|
+| ÁNYK                                                                                                                                | `base-ubuntu-xfce`       | `base-ubuntu-kde`       | `base-ubuntu-mate`       |
+| ÁNYK és 19HIPA (2019-es Helyi iparűzési adó)                                                                                        | `nav19hipa-ubuntu-xfce`  | `nav19hipa-ubuntu-kde`  | `nav19hipa-ubuntu-mate`  |
+| ÁNYK és 20HIPA (2020-as Helyi iparűzési adó)                                                                                        | `nav20hipa-ubuntu-xfce`  | `nav20hipa-ubuntu-kde`  | `nav20hipa-ubuntu-mate`  |
+| ÁNYK és 21HIPA (2021-es Helyi iparűzési adó)                                                                                        | `nav21hipa-ubuntu-xfce`  | `nav21hipa-ubuntu-kde`  | `nav21hipa-ubuntu-mate`  |
+| ÁNYK és 22HIPAK (2022-es Helyi iparűzési adó)                                                                                       | `nav22hipak-ubuntu-xfce` | `nav22hipak-ubuntu-kde` | `nav22hipak-ubuntu-mate` |
+| ANYK és IGAZOL (NAV igazolások: jövedelemigazolás, nemleges adóigazolás, stb)                                                       | `navigazol-ubuntu-xfce`  | `navigazol-ubuntu-kde`  | `navigazol-ubuntu-mate`  |
+| ANYK és OEPEUCARD (Európai Egészségbiztosítási Kártya)                                                                              | `oepegt-ubuntu-xfce`     | `oepegt-ubuntu-kde`     | `oepegt-ubuntu-mate`     |
+| ANYK és OEP-EGT-TAGALLAM (Bejelentő lap TAJ számmal rendelkező magyar állampolgár részére, aki EGT tagállamban biztosított személy) | `oepeucard-ubuntu-xfce`  | `oepeucard-ubuntu-kde`  | `oepeucard-ubuntu-mate`  |
 
 ## Használat
 
-Csinálj egy docker container-t az alábbi parancsokhoz hasonlóan: `docker run -p 3390:3389 reisingeradam/anyk:latest` vagy `docker run -p 3390:3389 reisingeradam/anyk:latest-22hipak`.
+Csinálj egy docker container-t az alábbi parancsokhoz hasonlóan: `docker run -p 3390:3389 reisingeradam/anyk:base-ubuntu-xfce` vagy `docker run -p 3390:3389 reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
 
-Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-22hipak`.
-Így bekerül a fájl a root home mappába.
+Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/config/<file name>" reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
+Így bekerül a fájl a config home mappába.
 
 Csatlakozz a container-hez távoli asztallal. A "számítógép" címe `localhost:3390`.
 
-Felhasználónév/jelszó: `root`/`root`.
-
-## Ismert problémák
-
-### Magyar billentyűkiosztás beállítása
-
-Lásd: <https://github.com/Res42/anyk-docker/issues/2>
-
-Az asztalon található egy ikon `Switch to Hungarian keyboard` néven, erre kattintva átvált magyar billentyűzetkiosztásra a rendszer.
-
-Egyébként így lehet beállítani:
-
-1. Bal felső sarokban kattints az `Applications` menüre.
-2. `Settings` → `Keyboard` almenü.
-3. `Layout` fül.
-4. `Use system defaults` elől szedd ki a pipát.
-5. `Keyboard model`-t állítsd `Generic 105-key PC (intl.)`-re.
-6. `Keyboard layout`-ot állítds `Hungarian`-ra.
-7. Töröld az `English (US)`-t a `Keyboard layout` listából.
+Felhasználónév/jelszó: `abc`/`abc`.

@@ -1,0 +1,12 @@
+ARG DESKTOP
+
+FROM reisingeradam/anyk:base-ubuntu-$DESKTOP
+
+ARG PLUGIN_URL
+
+RUN curl $PLUGIN_URL -o ~/plugin.jar \
+    # -s: silent (non-gui) install
+    && java -jar ~/plugin.jar -s \
+    && rm ~/plugin.jar \
+    # Change rights to default user
+    && chown -R abc:abc /usr/share/abevjava/
