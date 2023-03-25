@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  anyk:
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:oepeucard-ubuntu-${DESKTOP}
+    container_name: anyk-oepeucard-ubuntu-${DESKTOP}
+    ports:
+      - 3389:3389
+    shm_size: '1gb'
+    build:
+      context: '.'
+      platforms:
+        - 'linux/amd64'
+        - 'linux/arm64'
+      dockerfile: Dockerfile.plugin
+      args:
+        DESKTOP: ${DESKTOP}
+        PLUGIN_URL: https://www.neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_igenylolap_eu_kartyahoz&inline=true

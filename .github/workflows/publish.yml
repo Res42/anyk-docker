@@ -1,20 +1,86 @@
-name: Push to DockerHub
+name: Build and publish Docker images
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-base:
+    strategy:
+      matrix:
+        desktop: ["kde", "mate", "xfce"]
+        base: ["base"]
 
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
 
       - uses: docker/login-action@v2
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build the ${{ matrix.base }} ${{ matrix.desktop }} image
+        run: docker compose -f builds/${{ matrix.base }}.yml --env-file builds/env/${{ matrix.desktop }}.env build
+
+      - name: Publish the ${{ matrix.base }} ${{ matrix.desktop }} image
+        run: docker compose -f builds/${{ matrix.base }}.yml --env-file builds/env/${{ matrix.desktop }}.env push
+
+  build-plugins:
+    needs: build-base
+    strategy:
+      matrix:
+        desktop: ["kde", "mate", "xfce"]
+        plugin: ["NAV_19HIPA", "NAV_20HIPA", "NAV_21HIPA", "NAV_22HIPAK", "NAV_IGAZOL", "OEP_egt_tagallam", "OEP_igenylolap_eu_kartyahoz"]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
+
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build the ${{ matrix.plugin }} ${{ matrix.desktop }} image
+        run: docker compose -f builds/plugin/${{ matrix.plugin }}.yml --env-file builds/env/${{ matrix.desktop }}.env build
+
+      - name: Publish the ${{ matrix.plugin }} ${{ matrix.desktop }} image
+        run: docker compose -f builds/plugin/${{ matrix.plugin }}.yml --env-file builds/env/${{ matrix.desktop }}.env push
+
+  update-readme:
+    needs: [build-base, build-plugins]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
 
       - name: Update Docker Hub description
         uses: peter-evans/dockerhub-description@v3
@@ -23,43 +89,3 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
           repository: reisingeradam/anyk
           readme-filepath: ./README.en.md
-
-      - name: Push the ANYK image
-        run: |
-          docker compose -f anyk/docker-compose.yml build
-          docker compose -f anyk/docker-compose.yml push
-
-      - name: Push the ANYK-19HIPA image
-        run: |
-          docker compose -f anyk-19hipa/docker-compose.yml build
-          docker compose -f anyk-19hipa/docker-compose.yml push
-
-      - name: Push the ANYK-20HIPA image
-        run: |
-          docker compose -f anyk-20hipa/docker-compose.yml build
-          docker compose -f anyk-20hipa/docker-compose.yml push
-
-      - name: Push the ANYK-21HIPA image
-        run: |
-          docker compose -f anyk-21hipa/docker-compose.yml build
-          docker compose -f anyk-21hipa/docker-compose.yml push
-
-      - name: Push the ANYK-IGAZOL image
-        run: |
-          docker compose -f anyk-igazol/docker-compose.yml build
-          docker compose -f anyk-igazol/docker-compose.yml push
-
-      - name: Push the ANYK-22HIPAK image
-        run: |
-          docker compose -f anyk-22hipak/docker-compose.yml build
-          docker compose -f anyk-22hipak/docker-compose.yml push
-
-      - name: Push the ANYK-OEPEUCARD image
-        run: |
-          docker compose -f anyk-oepeucard/docker-compose.yml build
-          docker compose -f anyk-oepeucard/docker-compose.yml push
-
-      - name: Push the ANYK-OEP-EGT-TAGALLAM image
-        run: |
-          docker compose -f anyk-oep-egt-tagallam/docker-compose.yml build
-          docker compose -f anyk-oep-egt-tagallam/docker-compose.yml push

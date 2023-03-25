@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  anyk:
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:nav19hipa-ubuntu-${DESKTOP}
+    container_name: anyk-nav19hipa-ubuntu-${DESKTOP}
+    ports:
+      - 3389:3389
+    shm_size: '1gb'
+    build:
+      context: '.'
+      platforms:
+        - 'linux/amd64'
+        - 'linux/arm64'
+      dockerfile: Dockerfile.plugin
+      args:
+        DESKTOP: ${DESKTOP}
+        PLUGIN_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/19HIPA/NAV_19HIPA

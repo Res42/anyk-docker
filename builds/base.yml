@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  anyk:
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:base-ubuntu-${DESKTOP}
+    container_name: anyk-base-ubuntu-${DESKTOP}
+    ports:
+      - 3389:3389
+    shm_size: '1gb'
+    build:
+      context: '.'
+      platforms:
+        - 'linux/amd64'
+        - 'linux/arm64'
+      dockerfile: Dockerfile
+      args:
+        DESKTOP: ${DESKTOP}
+        BASE_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava

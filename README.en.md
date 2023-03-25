@@ -17,46 +17,32 @@ We will only accept a merge request for a new ÁNYK form which cannot be submitt
 
 Docker files for [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/abevjava_install.html).
 
-Built on <https://github.com/danielguerra69/ubuntu-xrdp>.
+Built on <https://github.com/linuxserver/docker-rdesktop>.
 
 DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>.
 
 ## Docker images
 
-- ÁNYK only: `reisingeradam/anyk:latest`
-- ÁNYK and 19HIPA (Local business tax for 2019): `reisingeradam/anyk:latest-19hipa`
-- ÁNYK and 20HIPA (Local business tax for 2020): `reisingeradam/anyk:latest-20hipa`
-- ÁNYK and 21HIPA (Local business tax for 2021): `reisingeradam/anyk:latest-21hipa`
-- ÁNYK and 22HIPAK (Local business tax for 2022): `reisingeradam/anyk:latest-22hipak`
-- ANYK and IGAZOL (Tax agency certificates): `reisingeradam/anyk:latest-igazol`
-- ANYK and OEPEUCARD (European Health Insurance Card): `reisingeradam/anyk:latest-oepeucard`
-- ANYK and OEP-EGT-TAGALLAM (Form for a Hungarian citizen with a TAJ number who is an insured person in an EEA member state): `reisingeradam/anyk:latest-oep-egt-tagallam`
+The ubuntu multiplatform (amd64, arm64) images are available with 3 different desktop environments (Xfce, KDE and MATE) with the following image tags in the `reisingeradam/anyk` DockerHub repository:
+
+| Description                                                                                                                | Xfce                     | KDE                     | MATE                     |
+|----------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------|--------------------------|
+| ÁNYK                                                                                                                       | `base-ubuntu-xfce`       | `base-ubuntu-kde`       | `base-ubuntu-mate`       |
+| ÁNYK and 19HIPA (Local business tax for 2019)                                                                              | `nav19hipa-ubuntu-xfce`  | `nav19hipa-ubuntu-kde`  | `nav19hipa-ubuntu-mate`  |
+| ÁNYK and 20HIPA (Local business tax for 2020)                                                                              | `nav20hipa-ubuntu-xfce`  | `nav20hipa-ubuntu-kde`  | `nav20hipa-ubuntu-mate`  |
+| ÁNYK and 21HIPA (Local business tax for 2021)                                                                              | `nav21hipa-ubuntu-xfce`  | `nav21hipa-ubuntu-kde`  | `nav21hipa-ubuntu-mate`  |
+| ÁNYK and 22HIPAK (Local business tax for 2022)                                                                             | `nav22hipak-ubuntu-xfce` | `nav22hipak-ubuntu-kde` | `nav22hipak-ubuntu-mate` |
+| ANYK and IGAZOL (Tax agency certificates)                                                                                  | `navigazol-ubuntu-xfce`  | `navigazol-ubuntu-kde`  | `navigazol-ubuntu-mate`  |
+| ANYK and OEPEUCARD (European Health Insurance Card)                                                                        | `oepegt-ubuntu-xfce`     | `oepegt-ubuntu-kde`     | `oepegt-ubuntu-mate`     |
+| ANYK and OEP-EGT-TAGALLAM (Form for a Hungarian citizen with a TAJ number who is an insured person in an EEA member state) | `oepeucard-ubuntu-xfce`  | `oepeucard-ubuntu-kde`  | `oepeucard-ubuntu-mate`  |
 
 ## How to use
 
-Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:latest` or `docker run -p 3390:3389 reisingeradam/anyk:latest-22hipak`.
+Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:base-ubuntu-xfce` or `docker run -p 3390:3389 reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
 
-Or if you have an `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/root/<file name>" reisingeradam/anyk:latest-22hipak`.
+Or if you have a `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/config/<file name>" reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
 With this the XML will be in the root home directory.
 
 Connect with a remote desktop app to `localhost:3390` (the port may be changed in the docker run command or in the docker-compose.yml).
 
-User/password: `root`/`root`.
-
-## Known issues
-
-### How to change the keyboard layout to Hungarian
-
-See: <https://github.com/Res42/anyk-docker/issues/2>
-
-There is an icon on the desktop named `Switch to Hungarian keyboard`, if you use this icon then the system will change the keyboard layout to Hungarian.
-
-Or if you prefer setting it manually:
-
-1. Click `Applications` in the top left corner of the desktop.
-2. Click `Settings` → `Keyboard`.
-3. Switch to the `Layout` tab.
-4. Remove the check from `Use system defaults`.
-5. Set the `Keyboard model` to `Generic 105-key PC (intl.)`.
-6. Add `Hungarian` to the `Keyboard layout` list.
-7. Remove `English (US)` from the `Keyboard layout` list.
+User/password: `abc`/`abc`.

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  anyk:
+    image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:oepegt-ubuntu-${DESKTOP}
+    container_name: anyk-oepegt-ubuntu-${DESKTOP}
+    ports:
+      - 3389:3389
+    shm_size: '1gb'
+    build:
+      context: '.'
+      platforms:
+        - 'linux/amd64'
+        - 'linux/arm64'
+      dockerfile: Dockerfile.plugin
+      args:
+        DESKTOP: ${DESKTOP}
+        PLUGIN_URL: https://www.neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_OEP_egt_tagallam_1_14&inline=true
