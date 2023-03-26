@@ -1,4 +1,4 @@
-name: Check for ANYK OEP plugin update
+name: Check for plugin update
 
 on:
   workflow_dispatch:
@@ -9,7 +9,44 @@ jobs:
   check:
     strategy:
       matrix:
-        target: ["OEP_igenylolap_eu_kartyahoz","OEP_egt_tagallam"]
+        target:
+          [
+            {
+              rovidnev: "OEP_igenylolap_eu_kartyahoz",
+              source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
+              namePrefix: "",
+            },
+            {
+              rovidnev: "OEP_egt_tagallam",
+              source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
+              namePrefix: "",
+            },
+            {
+              rovidnev: "19HIPA",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "NAV_",
+            },
+            {
+              rovidnev: "20HIPA",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "NAV_",
+            },
+            {
+              rovidnev: "21HIPA",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "NAV_",
+            },
+            {
+              rovidnev: "22HIPAK",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "NAV_",
+            },
+            {
+              rovidnev: "IGAZOL",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "NAV_",
+            },
+          ]
 
     runs-on: ubuntu-latest
 
@@ -18,52 +55,53 @@ jobs:
         with:
           ref: 'master'
 
-      - name: Download OEP repository index
-        run: curl -L https://hkp.neak.gov.hu/nyomtatvanyok/ -o oep.xml
+      - name: Download repository index
+        run: curl -L ${{ matrix.target.source }} -o repository.xml
 
-      - name: Get latest OEP version number for ${{ matrix.target }}
-        id: oep_remote_version
+      - name: Get latest version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
+        id: remote_version
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
-          xml-file: 'oep.xml'
-          xpath: '/adat/nyomtatvany[rovidnev="${{ matrix.target }}"]/verzio'
+          xml-file: 'repository.xml'
+          # checking 'kategoria' to filter out the help files
+          xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/verzio'
 
-      - name: Get current local version number for ${{ matrix.target }}
-        id: oep_local_version
-        run: echo "version=$(head -n 1 build/plugin/${{ matrix.target }}.version)" >> $GITHUB_OUTPUT
+      - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
+        id: local_version
+        run: echo "version=$(test -f build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version && head -n 1 build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version || echo 0)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Update check time
-        run: echo $(date -u) > '.github/${{ matrix.target }}-version-check-time.txt'
+        run: echo $(date -u) > '.github/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version-check-time.txt'
         shell: bash
 
       - name: Push latest check time
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update latest version check time
-          branch: bot/keepalive-${{ matrix.target }}-update-check
+          branch: bot/keepalive-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-update-check
           create_branch: true
           push_options: '--force'
           commit_user_name: github-actions[bot]
           commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          file_pattern: '.github/${{ matrix.target }}-version-check-time.txt'
+          file_pattern: '.github/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version-check-time.txt'
 
-      - name: Update ${{ matrix.target }} version file
-        if: ${{steps.oep_remote_version.outputs.info > steps.oep_local_version.outputs.version}}
-        run: echo ${{ steps.oep_remote_version.outputs.info }} > 'build/plugin/${{ matrix.target }}.version'
+      - name: Update ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version file
+        if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
+        run: echo ${{ steps.remote_version.outputs.info }} > 'build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
         shell: bash
 
       - name: Create pull request
-        if: ${{steps.oep_remote_version.outputs.info > steps.oep_local_version.outputs.version}}
+        if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: Update ANYK ${{ matrix.target }} plugin version
+          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin version
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           base: master
-          branch: bot/update-anyk-${{ matrix.target }}-version
+          branch: bot/update-anyk-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version
           delete-branch: true
-          title: Update ANYK ${{ matrix.target }} plugin version
-          body: Update ANYK ${{ matrix.target }} plugin to the latest version.
-          add-paths: build/plugin/${{ matrix.target }}.version
+          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin version
+          body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin to the latest version.
+          add-paths: build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
