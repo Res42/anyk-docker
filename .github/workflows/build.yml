@@ -36,12 +36,23 @@ jobs:
       - name: Build the ${{ matrix.base }} ${{ matrix.desktop }} image
         run: docker buildx bake -f build/${{ matrix.base }}.yml
 
+  list-plugins:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+        run: echo "matrix=$(ls build/plugin/*.yml | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+
   build-plugins:
-    needs: build-base
+    needs: [build-base, list-plugins]
     strategy:
       matrix:
         desktop: ["kde", "mate", "xfce"]
-        plugin: ["NAV_19HIPA", "NAV_20HIPA", "NAV_21HIPA", "NAV_22HIPAK", "NAV_IGAZOL", "OEP_egt_tagallam", "OEP_igenylolap_eu_kartyahoz"]
+        plugin: ${{ fromJson(needs.llist-plugins.outputs.matrix) }}
 
     runs-on: ubuntu-latest
 
