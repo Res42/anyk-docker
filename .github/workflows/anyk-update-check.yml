@@ -37,7 +37,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update latest version check time
-          branch: bot/keepalive-update-check
+          branch: bot/keepalive-base-update-check
           create_branch: true
           push_options: '--force'
           commit_user_name: github-actions[bot]
