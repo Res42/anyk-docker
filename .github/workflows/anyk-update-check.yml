@@ -26,7 +26,7 @@ jobs:
 
       - name: Get current local version number
         id: localversion
-        run: echo "version=$(head -n 1 builds/base.version)" >> $GITHUB_OUTPUT
+        run: echo "version=$(head -n 1 build/base.version)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Update check time
@@ -47,7 +47,7 @@ jobs:
 
       - name: Update version file
         if: ${{steps.latestanykversion.outputs.info > steps.localversion.outputs.version}}
-        run: echo ${{ steps.latestanykversion.outputs.info }} > 'builds/base.version'
+        run: echo ${{ steps.latestanykversion.outputs.info }} > 'build/base.version'
         shell: bash
 
       - name: Create pull request
@@ -62,4 +62,4 @@ jobs:
           delete-branch: true
           title: Update ANYK version
           body: Update ANYK to the latest version.
-          add-paths: builds/base.version
+          add-paths: build/base.version

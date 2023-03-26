@@ -14,7 +14,7 @@ services:
         - 'linux/arm64'
       x-bake:
         platforms: ['linux/amd64', 'linux/arm64']
-      dockerfile: builds/plugin/Dockerfile.plugin
+      dockerfile: build/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
         PLUGIN_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/21HIPA/NAV_21HIPA
