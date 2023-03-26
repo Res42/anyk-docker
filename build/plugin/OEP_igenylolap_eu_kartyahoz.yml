@@ -14,7 +14,7 @@ services:
         - 'linux/arm64'
       x-bake:
         platforms: ['linux/amd64', 'linux/arm64']
-      dockerfile: builds/plugin/Dockerfile.plugin
+      dockerfile: build/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
-        PLUGIN_URL: https://www.neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_igenylolap_eu_kartyahoz&inline=true
+        PLUGIN_URL: https://neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_igenylolap_eu_kartyahoz&inline=true

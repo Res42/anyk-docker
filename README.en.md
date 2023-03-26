@@ -15,7 +15,7 @@ We will only accept a merge request for a new ÁNYK form which cannot be submitt
 
 # anyk-docker
 
-Docker files for [ÁNYK](https://www.nav.gov.hu/nav/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/abevjava_install.html).
+Docker files for [ÁNYK](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava).
 
 Built on <https://github.com/linuxserver/docker-rdesktop>.
 
@@ -25,16 +25,16 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>.
 
 The ubuntu multiplatform (amd64, arm64) images are available with 3 different desktop environments (Xfce, KDE and MATE) with the following image tags in the `reisingeradam/anyk` DockerHub repository:
 
-| Description                                                                                                                | Xfce                     | KDE                     | MATE                     |
-|----------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------|--------------------------|
-| ÁNYK                                                                                                                       | `base-ubuntu-xfce`       | `base-ubuntu-kde`       | `base-ubuntu-mate`       |
-| ÁNYK and 19HIPA (Local business tax for 2019)                                                                              | `nav19hipa-ubuntu-xfce`  | `nav19hipa-ubuntu-kde`  | `nav19hipa-ubuntu-mate`  |
-| ÁNYK and 20HIPA (Local business tax for 2020)                                                                              | `nav20hipa-ubuntu-xfce`  | `nav20hipa-ubuntu-kde`  | `nav20hipa-ubuntu-mate`  |
-| ÁNYK and 21HIPA (Local business tax for 2021)                                                                              | `nav21hipa-ubuntu-xfce`  | `nav21hipa-ubuntu-kde`  | `nav21hipa-ubuntu-mate`  |
-| ÁNYK and 22HIPAK (Local business tax for 2022)                                                                             | `nav22hipak-ubuntu-xfce` | `nav22hipak-ubuntu-kde` | `nav22hipak-ubuntu-mate` |
-| ANYK and IGAZOL (Tax agency certificates)                                                                                  | `navigazol-ubuntu-xfce`  | `navigazol-ubuntu-kde`  | `navigazol-ubuntu-mate`  |
-| ANYK and OEPEUCARD (European Health Insurance Card)                                                                        | `oepegt-ubuntu-xfce`     | `oepegt-ubuntu-kde`     | `oepegt-ubuntu-mate`     |
-| ANYK and OEP-EGT-TAGALLAM (Form for a Hungarian citizen with a TAJ number who is an insured person in an EEA member state) | `oepeucard-ubuntu-xfce`  | `oepeucard-ubuntu-kde`  | `oepeucard-ubuntu-mate`  |
+| Description                                                                                                                                                                                                                                                    | Xfce                     | KDE                     | MATE                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------|--------------------------|
+| [ÁNYK](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava)                                                                                                                                      | `base-ubuntu-xfce`       | `base-ubuntu-kde`       | `base-ubuntu-mate`       |
+| [ÁNYK and 19HIPA (Local business tax for 2019)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/19HIPA)                                                                                              | `nav19hipa-ubuntu-xfce`  | `nav19hipa-ubuntu-kde`  | `nav19hipa-ubuntu-mate`  |
+| [ÁNYK and 20HIPA (Local business tax for 2020)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/20HIPA)                                                                                              | `nav20hipa-ubuntu-xfce`  | `nav20hipa-ubuntu-kde`  | `nav20hipa-ubuntu-mate`  |
+| [ÁNYK and 21HIPA (Local business tax for 2021)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/21HIPA)                                                                                              | `nav21hipa-ubuntu-xfce`  | `nav21hipa-ubuntu-kde`  | `nav21hipa-ubuntu-mate`  |
+| [ÁNYK and 22HIPAK (Local business tax for 2022)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/22hipak)                                                                                            | `nav22hipak-ubuntu-xfce` | `nav22hipak-ubuntu-kde` | `nav22hipak-ubuntu-mate` |
+| [ANYK and IGAZOL (Tax agency certificates)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/igazol)                                                                                                  | `navigazol-ubuntu-xfce`  | `navigazol-ubuntu-kde`  | `navigazol-ubuntu-mate`  |
+| [ANYK and OEPEUCARD (European Health Insurance Card)](https://neak.gov.hu/felso_menu/lakossagnak/ellatas_kulfoldon/az_europai_egeszsegbiztositasi_kartya)                                                                                                      | `oepegt-ubuntu-xfce`     | `oepegt-ubuntu-kde`     | `oepegt-ubuntu-mate`     |
+| [ANYK and OEP-EGT-TAGALLAM (Form for a Hungarian citizen with a TAJ number who is an insured person in an EEA member state)](https://neak.gov.hu/felso_menu/lakossagnak/ellatas_magyarorszagon/jogosultsag_az_ellatasra/kulfoldon_munkat_vallalok_bejelentese) | `oepeucard-ubuntu-xfce`  | `oepeucard-ubuntu-kde`  | `oepeucard-ubuntu-mate`  |
 
 ## How to use
 

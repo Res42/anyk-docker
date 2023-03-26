@@ -34,7 +34,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build the ${{ matrix.base }} ${{ matrix.desktop }} image
-        run: docker buildx bake -f builds/${{ matrix.base }}.yml
+        run: docker buildx bake -f build/${{ matrix.base }}.yml
 
   build-plugins:
     needs: build-base
@@ -61,4 +61,4 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build the ${{ matrix.plugin }} ${{ matrix.desktop }} image
-        run: docker buildx bake -f builds/plugin/${{ matrix.plugin }}.yml
+        run: docker buildx bake -f build/plugin/${{ matrix.plugin }}.yml
