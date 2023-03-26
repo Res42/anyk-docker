@@ -12,7 +12,9 @@ services:
       platforms:
         - 'linux/amd64'
         - 'linux/arm64'
-      dockerfile: Dockerfile
+      x-bake:
+        platforms: ['linux/amd64', 'linux/arm64']
+      dockerfile: builds/Dockerfile
       args:
         DESKTOP: ${DESKTOP}
         BASE_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava
