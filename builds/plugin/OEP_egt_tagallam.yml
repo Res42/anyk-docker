@@ -17,4 +17,4 @@ services:
       dockerfile: builds/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
-        PLUGIN_URL: https://www.neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_OEP_egt_tagallam_1_14&inline=true
+        PLUGIN_URL: https://neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_OEP_egt_tagallam_1_14&inline=true
