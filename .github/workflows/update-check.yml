@@ -112,6 +112,7 @@ jobs:
           title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
           body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} to the latest version.
           add-paths: build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+          labels: dependencies
 
   keepalive-update:
     runs-on: ubuntu-latest
