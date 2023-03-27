@@ -38,12 +38,26 @@ jobs:
         with:
           files: build/${{ matrix.base }}.yml
 
+  list-plugins:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate plugin matrix
+        id: generate-matrix
+        run: echo "matrix=$(ls build/plugin/*.yml | sed s/"build\/plugin\/"// | sed s/.yml// | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+
   build-plugins:
-    needs: build-base
+    needs: [build-base, list-plugins]
     strategy:
       matrix:
         desktop: ["kde", "mate", "xfce"]
-        plugin: ["NAV_19HIPA", "NAV_20HIPA", "NAV_21HIPA", "NAV_22HIPAK", "NAV_IGAZOL", "OEP_egt_tagallam", "OEP_igenylolap_eu_kartyahoz"]
+        plugin: ${{ fromJson(needs.list-plugins.outputs.matrix) }}
 
     runs-on: ubuntu-latest
 
