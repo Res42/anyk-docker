@@ -58,22 +58,6 @@ jobs:
         id: generate-matrix
         run: echo "matrix=$(ls build/plugin/*.yml | sed s/"build\/plugin\/"// | sed s/.yml// | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
 
-  list-plugins:
-    runs-on: ubuntu-latest
-
-    outputs:
-      matrix: ${{ steps.generate-matrix.outputs.matrix }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          ref: 'master'
-
-      - name: Generate plugin matrix
-        id: generate-matrix
-        run: echo "matrix=$(ls build/plugin/*.yml | sed s/"build\/plugin\/"// | sed s/.yml// | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
-
   build-plugins:
     needs: [build-base, list-plugins]
     strategy:

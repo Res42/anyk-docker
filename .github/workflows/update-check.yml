@@ -1,4 +1,4 @@
-name: Check for plugin update
+name: Check for ANYK base and plugin updates
 
 on:
   workflow_dispatch:
@@ -6,7 +6,50 @@ on:
   - cron: '0 0 * * *'
 
 jobs:
-  check:
+  base-update-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
+
+      - name: Download ANYK repository index
+        run: curl -L https://nav.gov.hu/api/declarationForms/anyk -o anyk.xml
+
+      - name: Get latest ANYK version number
+        id: latestanykversion
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'anyk.xml'
+          xpath: '/adat/keretprogram/verzio'
+
+      - name: Get current local version number
+        id: localversion
+        run: echo "version=$(head -n 1 build/base.version)" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Update version file
+        if: ${{steps.latestanykversion.outputs.info > steps.localversion.outputs.version}}
+        run: echo ${{ steps.latestanykversion.outputs.info }} > 'build/base.version'
+        shell: bash
+
+      - name: Create pull request
+        if: ${{steps.latestanykversion.outputs.info > steps.localversion.outputs.version}}
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update ANYK version
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          base: master
+          branch: bot/update-anyk-version
+          delete-branch: true
+          title: Update ANYK version
+          body: Update ANYK to the latest version.
+          add-paths: build/base.version
+
+  plugin-update-check:
     strategy:
       matrix:
         target:
@@ -51,7 +94,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           ref: 'master'
 
@@ -71,22 +115,6 @@ jobs:
         run: echo "version=$(test -f build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version && head -n 1 build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version || echo 0)" >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: Update check time
-        run: echo $(date -u) > '.github/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version-check-time.txt'
-        shell: bash
-
-      - name: Push latest check time
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Update latest version check time
-          branch: bot/keepalive-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-update-check
-          create_branch: true
-          push_options: '--force'
-          commit_user_name: github-actions[bot]
-          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          file_pattern: '.github/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version-check-time.txt'
-
       - name: Update ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version file
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         run: echo ${{ steps.remote_version.outputs.info }} > 'build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
@@ -105,3 +133,30 @@ jobs:
           title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin version
           body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin to the latest version.
           add-paths: build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+
+  keepalive-update:
+    needs: [base-update-check, plugin-update-check]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
+
+      - name: Update check time
+        run: echo $(date -u) > '.github/update-check-time.txt'
+        shell: bash
+
+      - name: Push latest check time
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update latest version check time
+          branch: bot/keepalive-update-check
+          create_branch: true
+          push_options: '--force'
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          file_pattern: '.github/update-check-time.txt'
