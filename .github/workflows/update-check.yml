@@ -6,88 +6,58 @@ on:
   - cron: '0 0 * * *'
 
 jobs:
-  base-update-check:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          ref: 'master'
-
-      - name: Download ANYK repository index
-        run: curl -L https://nav.gov.hu/api/declarationForms/anyk -o anyk.xml
-
-      - name: Get latest ANYK version number
-        id: latestanykversion
-        uses: mavrosxristoforos/get-xml-info@1.1.1
-        with:
-          xml-file: 'anyk.xml'
-          xpath: '/adat/keretprogram/verzio'
-
-      - name: Get current local version number
-        id: localversion
-        run: echo "version=$(head -n 1 build/base.version)" >> $GITHUB_OUTPUT
-        shell: bash
-
-      - name: Update version file
-        if: ${{steps.latestanykversion.outputs.info > steps.localversion.outputs.version}}
-        run: echo ${{ steps.latestanykversion.outputs.info }} > 'build/base.version'
-        shell: bash
-
-      - name: Create pull request
-        if: ${{steps.latestanykversion.outputs.info > steps.localversion.outputs.version}}
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: Update ANYK version
-          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          base: master
-          branch: bot/update-anyk-version
-          delete-branch: true
-          title: Update ANYK version
-          body: Update ANYK to the latest version.
-          add-paths: build/base.version
-
-  plugin-update-check:
+  update-check:
     strategy:
       matrix:
         target:
           [
             {
+              rovidnev: "base",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "",
+              path: "",
+            },
+            {
               rovidnev: "OEP_igenylolap_eu_kartyahoz",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
+              path: "plugin/",
             },
             {
               rovidnev: "OEP_egt_tagallam",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
+              path: "plugin/",
             },
             {
               rovidnev: "19HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
+              path: "plugin/",
             },
             {
               rovidnev: "20HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
+              path: "plugin/",
             },
             {
               rovidnev: "21HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
+              path: "plugin/",
             },
             {
               rovidnev: "22HIPAK",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
+              path: "plugin/",
             },
             {
               rovidnev: "IGAZOL",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
+              path: "plugin/",
             },
           ]
 
@@ -103,6 +73,15 @@ jobs:
         run: curl -L ${{ matrix.target.source }} -o repository.xml
 
       - name: Get latest version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
+        if: ${{matrix.target.rovidnev == "base" }}
+        id: remote_version
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/keretprogram/verzio'
+
+      - name: Get latest version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
+        if: ${{matrix.target.rovidnev != "base" }}
         id: remote_version
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
@@ -112,31 +91,29 @@ jobs:
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
         id: local_version
-        run: echo "version=$(test -f build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version && head -n 1 build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version || echo 0)" >> $GITHUB_OUTPUT
+        run: echo "version=$(test -f build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version && head -n 1 build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version || echo 0)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Update ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version file
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
-        run: echo ${{ steps.remote_version.outputs.info }} > 'build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
+        run: echo ${{ steps.remote_version.outputs.info }} > 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
         shell: bash
 
       - name: Create pull request
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin version
+          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           base: master
           branch: bot/update-anyk-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version
           delete-branch: true
-          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin version
-          body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} plugin to the latest version.
-          add-paths: build/plugin/${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
+          body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} to the latest version.
+          add-paths: build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
 
   keepalive-update:
-    needs: [base-update-check, plugin-update-check]
-
     runs-on: ubuntu-latest
 
     steps:
