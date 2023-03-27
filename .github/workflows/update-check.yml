@@ -3,7 +3,7 @@ name: Check for ANYK base and plugin updates
 on:
   workflow_dispatch:
   schedule:
-  - cron: '0 0 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   update-check:
@@ -74,7 +74,7 @@ jobs:
 
       - name: Get latest version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
         if: ${{matrix.target.rovidnev == 'base' }}
-        id: remote_version
+        id: remote_version_base
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: 'repository.xml'
@@ -82,12 +82,17 @@ jobs:
 
       - name: Get latest version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
         if: ${{matrix.target.rovidnev != 'base' }}
-        id: remote_version
+        id: remote_version_plugin
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: 'repository.xml'
           # checking 'kategoria' to filter out the help files
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/verzio'
+
+      - name: Get unified remove version
+        id: remote_version
+        run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
         id: local_version
