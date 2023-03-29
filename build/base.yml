@@ -1,20 +1,21 @@
 version: '3'
-
 services:
   anyk:
     image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:base-ubuntu-${DESKTOP}
     container_name: anyk-base-ubuntu-${DESKTOP}
     ports:
-      - 3389:3389
-    shm_size: '1gb'
+      - '3389:3389'
+    shm_size: 1gb
     build:
-      context: '.'
+      context: .
       platforms:
-        - 'linux/amd64'
-        - 'linux/arm64'
+        - linux/amd64
+        - linux/arm64
       x-bake:
-        platforms: ['linux/amd64', 'linux/arm64']
+        platforms:
+          - linux/amd64
+          - linux/arm64
       dockerfile: build/Dockerfile.base
       args:
         DESKTOP: ${DESKTOP}
-        DOWNLOAD_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava
+        DOWNLOAD_URL: https://nav.gov.hu/data/63029/abevjava_install.jar
