@@ -132,7 +132,7 @@ jobs:
         run: echo ${{ steps.remote_version.outputs.info }} > 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
         shell: bash
 
-      - name: Update download URL
+      - name: Update ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} download URL
         uses: fjogeleit/yaml-update-action@v0.12.3
         with:
           valueFile: 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml'
@@ -141,7 +141,6 @@ jobs:
           commitChange: false
 
       - name: Create pull request
-        if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
