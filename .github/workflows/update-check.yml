@@ -115,12 +115,12 @@ jobs:
 
       - name: Process remote version
         id: remote_version
-        run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})  | awk -F, '{print $1}'" >> $GITHUB_OUTPUT
+        run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Process download URL
         id: remote_url
-        run: echo "download_url=$(echo ${{ matrix.target.downloadHost }}${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }})" >> $GITHUB_OUTPUT
+        run: echo "download_url=$(echo ${{ matrix.target.downloadHost }}${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }}) | awk -F, '{print $1}'" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
