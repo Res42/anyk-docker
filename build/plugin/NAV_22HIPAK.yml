@@ -1,20 +1,21 @@
 version: '3'
-
 services:
   anyk:
     image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:nav22hipak-ubuntu-${DESKTOP}
     container_name: anyk-nav22hipak-ubuntu-${DESKTOP}
     ports:
-      - 3389:3389
-    shm_size: '1gb'
+      - '3389:3389'
+    shm_size: 1gb
     build:
-      context: '.'
+      context: .
       platforms:
-        - 'linux/amd64'
-        - 'linux/arm64'
+        - linux/amd64
+        - linux/arm64
       x-bake:
-        platforms: ['linux/amd64', 'linux/arm64']
+        platforms:
+          - linux/amd64
+          - linux/arm64
       dockerfile: build/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
-        DOWNLOAD_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/22hipak/nav_22hipak
+        DOWNLOAD_URL: https://nav.gov.hu/data/109041/NAV_22HIPAK.jar
