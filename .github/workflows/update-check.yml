@@ -115,7 +115,7 @@ jobs:
 
       - name: Process remote version
         id: remote_version
-        run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})" >> $GITHUB_OUTPUT
+        run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})  | awk -F, '{print $1}'" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Process download URL
