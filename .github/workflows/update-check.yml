@@ -72,6 +72,13 @@ jobs:
       - name: Download repository index
         run: curl -L ${{ matrix.target.source }} -o repository.xml
 
+      - name: Get host URL
+        id: remote_host
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/keretprogram/url'
+
       - name: Get latest version number for base
         if: ${{matrix.target.rovidnev == 'base' }}
         id: remote_version_base
@@ -79,6 +86,14 @@ jobs:
         with:
           xml-file: 'repository.xml'
           xpath: '/adat/keretprogram/verzio'
+
+      - name: Get latest download URL for base
+        if: ${{matrix.target.rovidnev == 'base' }}
+        id: remote_url_base
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/keretprogram/files/file'
 
       - name: Get latest version number for the plugin
         if: ${{matrix.target.rovidnev != 'base' }}
@@ -89,9 +104,22 @@ jobs:
           # checking 'kategoria' to filter out the help files
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/verzio'
 
+      - name: Get latest download URL for the plugin
+        if: ${{matrix.target.rovidnev != 'base' }}
+        id: remote_url_plugin
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/files/file'
+
       - name: Process remote version
         id: remote_version
         run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Process download URL
+        id: remote_url
+        run: echo "download_url=$(echo ${{ steps.remote_host.outputs.info }}$(echo "$(echo ${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }} | awk -F, '{print $1}')" | sed 's/^\/\?/\//'))" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
@@ -104,19 +132,29 @@ jobs:
         run: echo ${{ steps.remote_version.outputs.info }} > 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
         shell: bash
 
+      - name: Update download URL
+        uses: fjogeleit/yaml-update-action@v0.12.3
+        with:
+          valueFile: 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml'
+          propertyPath: 'services.anyk.build.args.DOWNLOAD_URL'
+          value: ${{ steps.remote_url.outputs.download_url }}
+          commitChange: false
+
       - name: Create pull request
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
+          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           base: master
-          branch: bot/update-anyk-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version
+          branch: bot/update-anyk-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
           delete-branch: true
-          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
+          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
           body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} to the latest version.
-          add-paths: build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+          add-paths: |
+            build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+            build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml
           labels: dependencies
 
   keepalive-update:

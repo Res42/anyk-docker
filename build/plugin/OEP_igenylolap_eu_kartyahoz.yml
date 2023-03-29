@@ -17,4 +17,4 @@ services:
       dockerfile: build/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
-        PLUGIN_URL: https://neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_igenylolap_eu_kartyahoz&inline=true
+        DOWNLOAD_URL: https://neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_igenylolap_eu_kartyahoz&inline=true
