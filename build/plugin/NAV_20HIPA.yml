@@ -17,4 +17,4 @@ services:
       dockerfile: build/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
-        PLUGIN_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/20HIPA/NAV_20HIPA
+        DOWNLOAD_URL: https://nav.gov.hu/pfile/programFile?path=/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/20HIPA/NAV_20HIPA

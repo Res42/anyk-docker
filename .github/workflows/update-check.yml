@@ -14,48 +14,56 @@ jobs:
             {
               rovidnev: "base",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
+              downloadHost: "https://nav.gov.hu/",
               namePrefix: "",
               path: "",
             },
             {
               rovidnev: "OEP_igenylolap_eu_kartyahoz",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
+              downloadHost: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
               path: "plugin/",
             },
             {
               rovidnev: "OEP_egt_tagallam",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
+              downloadHost: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
               path: "plugin/",
             },
             {
               rovidnev: "19HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
+              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "20HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
+              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "21HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
+              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "22HIPAK",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
+              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "IGAZOL",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
+              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
@@ -80,6 +88,14 @@ jobs:
           xml-file: 'repository.xml'
           xpath: '/adat/keretprogram/verzio'
 
+      - name: Get latest download URL for base
+        if: ${{matrix.target.rovidnev == 'base' }}
+        id: remote_url_base
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/keretprogram/files/file'
+
       - name: Get latest version number for the plugin
         if: ${{matrix.target.rovidnev != 'base' }}
         id: remote_version_plugin
@@ -89,9 +105,22 @@ jobs:
           # checking 'kategoria' to filter out the help files
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/verzio'
 
+      - name: Get latest download URL for the plugin
+        if: ${{matrix.target.rovidnev != 'base' }}
+        id: remote_url_plugin
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/files/file'
+
       - name: Process remote version
         id: remote_version
         run: echo "info=$(echo ${{ steps.remote_version_base.outputs.info }}${{ steps.remote_version_plugin.outputs.info }})" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Process download URL
+        id: remote_url
+        run: echo "download_url=$(echo ${{ matrix.target.downloadHost }}${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }})" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
@@ -103,6 +132,14 @@ jobs:
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         run: echo ${{ steps.remote_version.outputs.info }} > 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version'
         shell: bash
+
+      - name: Update download URL
+        uses: fjogeleit/yaml-update-action@v0.12.3
+        with:
+          valueFile: 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml'
+          propertyPath: 'services.anyk.build.args.DOWNLOAD_URL'
+          value: ${{ steps.remote_url.outputs.download_url }}
+          commitChange: false
 
       - name: Create pull request
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
@@ -116,7 +153,9 @@ jobs:
           delete-branch: true
           title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
           body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} to the latest version.
-          add-paths: build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+          add-paths: |
+            build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
+            build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml
           labels: dependencies
 
   keepalive-update:
