@@ -1,20 +1,21 @@
 version: '3'
-
 services:
   anyk:
     image: ${DOCKER_REGISTRY:-reisingeradam}/anyk:oepeucard-ubuntu-${DESKTOP}
     container_name: anyk-oepeucard-ubuntu-${DESKTOP}
     ports:
-      - 3389:3389
-    shm_size: '1gb'
+      - '3389:3389'
+    shm_size: 1gb
     build:
-      context: '.'
+      context: .
       platforms:
-        - 'linux/amd64'
-        - 'linux/arm64'
+        - linux/amd64
+        - linux/arm64
       x-bake:
-        platforms: ['linux/amd64', 'linux/arm64']
+        platforms:
+          - linux/amd64
+          - linux/arm64
       dockerfile: build/plugin/Dockerfile.plugin
       args:
         DESKTOP: ${DESKTOP}
-        DOWNLOAD_URL: https://neak.gov.hu/pfile/file?path=/nyomtatvanytar/nyomtatvanytar/emagyarorszag/NEAK_igenylolap_eu_kartyahoz&inline=true
+        DOWNLOAD_URL: https://hkp.neak.gov.hu/nyomtatvanyok/OEP_igenylolap_eu_kartyahoz_1_4.jar
