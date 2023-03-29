@@ -14,56 +14,48 @@ jobs:
             {
               rovidnev: "base",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
-              downloadHost: "https://nav.gov.hu/",
               namePrefix: "",
               path: "",
             },
             {
               rovidnev: "OEP_igenylolap_eu_kartyahoz",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
-              downloadHost: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
               path: "plugin/",
             },
             {
               rovidnev: "OEP_egt_tagallam",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
-              downloadHost: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
               path: "plugin/",
             },
             {
               rovidnev: "19HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
-              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "20HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
-              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "21HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
-              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "22HIPAK",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
-              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
             {
               rovidnev: "IGAZOL",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
-              downloadHost: "https://nav.gov.hu/",
               namePrefix: "NAV_",
               path: "plugin/",
             },
@@ -79,6 +71,13 @@ jobs:
 
       - name: Download repository index
         run: curl -L ${{ matrix.target.source }} -o repository.xml
+
+      - name: Get host URL
+        id: remote_host
+        uses: mavrosxristoforos/get-xml-info@1.1.1
+        with:
+          xml-file: 'repository.xml'
+          xpath: '/adat/keretprogram/url'
 
       - name: Get latest version number for base
         if: ${{matrix.target.rovidnev == 'base' }}
@@ -120,7 +119,7 @@ jobs:
 
       - name: Process download URL
         id: remote_url
-        run: echo "download_url=$(echo ${{ matrix.target.downloadHost }}${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }}) | awk -F, '{print $1}'" >> $GITHUB_OUTPUT
+        run: echo "download_url=$(echo ${{ steps.remote_host.outputs.info }}$(echo "$(echo ${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }} | awk -F, '{print $1}')" | sed 's/^\/\?/\//'))" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
