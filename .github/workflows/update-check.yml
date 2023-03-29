@@ -145,13 +145,13 @@ jobs:
         if: ${{steps.remote_version.outputs.info > steps.local_version.outputs.version}}
         uses: peter-evans/create-pull-request@v4
         with:
-          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
+          commit-message: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           base: master
-          branch: bot/update-anyk-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}-version
+          branch: bot/update-anyk-${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
           delete-branch: true
-          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} version
+          title: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
           body: Update ANYK ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }} to the latest version.
           add-paths: |
             build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.version
