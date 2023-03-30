@@ -56,7 +56,7 @@ jobs:
 
       - name: Generate plugin matrix
         id: generate-matrix
-        run: echo "matrix=$(ls build/plugin/*.yml | sed s/"build\/plugin\/"// | sed s/.yml// | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+        run: echo "matrix=$(ls build/plugin/*.yml | sed -e 's/build\/plugin\///' -e 's/.yml//' | jq -R -s -c 'split("\n") | .[:-1]')" >> $GITHUB_OUTPUT
 
   build-plugins:
     needs: [build-base, list-plugins]

@@ -80,7 +80,7 @@ jobs:
           xpath: '/adat/keretprogram/url'
 
       - name: Get latest version number for base
-        if: ${{matrix.target.rovidnev == 'base' }}
+        if: matrix.target.rovidnev == 'base'
         id: remote_version_base
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
@@ -88,7 +88,7 @@ jobs:
           xpath: '/adat/keretprogram/verzio'
 
       - name: Get latest download URL for base
-        if: ${{matrix.target.rovidnev == 'base' }}
+        if: matrix.target.rovidnev == 'base'
         id: remote_url_base
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
@@ -96,7 +96,7 @@ jobs:
           xpath: '/adat/keretprogram/files/file'
 
       - name: Get latest version number for the plugin
-        if: ${{matrix.target.rovidnev != 'base' }}
+        if: matrix.target.rovidnev != 'base'
         id: remote_version_plugin
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
@@ -105,7 +105,7 @@ jobs:
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/verzio'
 
       - name: Get latest download URL for the plugin
-        if: ${{matrix.target.rovidnev != 'base' }}
+        if: matrix.target.rovidnev != 'base'
         id: remote_url_plugin
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
@@ -119,7 +119,7 @@ jobs:
 
       - name: Process download URL
         id: remote_url
-        run: echo "download_url=$(echo ${{ steps.remote_host.outputs.info }}$(echo "$(echo ${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }} | awk -F, '{print $1}')" | sed 's/^\/\?/\//'))" >> $GITHUB_OUTPUT
+        run: echo "download_url=${{ steps.remote_host.outputs.info }}$(echo "${{ steps.remote_url_base.outputs.info }}${{ steps.remote_url_plugin.outputs.info }}" | awk -F, '{print $1}' | sed 's/^\/\?/\//')" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Get current local version number for ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
