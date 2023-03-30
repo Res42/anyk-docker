@@ -19,4 +19,4 @@ services:
       args:
         DESKTOP: ${DESKTOP}
         DOWNLOAD_URL: https://hkp.neak.gov.hu/nyomtatvanyok/OEP_egt_tagallam_1_14.jar
-        DOWNLOAD_VERSION: 0
+        DOWNLOAD_VERSION: '1.14'
