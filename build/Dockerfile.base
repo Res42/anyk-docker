@@ -5,7 +5,7 @@ FROM lscr.io/linuxserver/rdesktop:ubuntu-$DESKTOP
 ARG DOWNLOAD_URL
 
 # Update (Firefox, CA, curl, tzdata), install packages (Java 8 for ANYK) and set timezone
-RUN apt-get update && apt-get --only-upgrade install firefox ca-certificates curl tzdata \
+RUN apt-get update && apt-get --only-upgrade -y install firefox ca-certificates curl tzdata \
     && apt-get install -y openjdk-8-jre \
     && ln -fs /usr/share/zoneinfo/Europe/Budapest /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
