@@ -26,7 +26,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>.
 The ubuntu multiplatform (amd64, arm64) images are available with 3 different desktop environments (Xfce, KDE and MATE) with the following image tags in the `reisingeradam/anyk` DockerHub repository:
 
 | Description                                                                                                                                                                                                                                                    | Xfce                     | KDE                     | MATE                     |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------|--------------------------|
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ----------------------- | ------------------------ |
 | [ÁNYK](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava)                                                                                                                                      | `base-ubuntu-xfce`       | `base-ubuntu-kde`       | `base-ubuntu-mate`       |
 | [ÁNYK and 19HIPA (Local business tax for 2019)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/19HIPA)                                                                                              | `nav19hipa-ubuntu-xfce`  | `nav19hipa-ubuntu-kde`  | `nav19hipa-ubuntu-mate`  |
 | [ÁNYK and 20HIPA (Local business tax for 2020)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/20HIPA)                                                                                              | `nav20hipa-ubuntu-xfce`  | `nav20hipa-ubuntu-kde`  | `nav20hipa-ubuntu-mate`  |
@@ -46,3 +46,9 @@ With this the XML will be in the root home directory.
 Connect with a remote desktop app to `localhost:3390` (the port may be changed in the docker run command or in the docker-compose.yml).
 
 User/password: `abc`/`abc`.
+
+### seccomp config
+
+In some cases an extra parameter is needed to properly run the container, see <https://github.com/Res42/anyk-docker/issues/98>.
+
+The example commands with this new parameter: `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:base-ubuntu-xfce` or `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
