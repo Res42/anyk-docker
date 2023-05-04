@@ -26,7 +26,7 @@ DockerHub: <https://hub.docker.com/r/reisingeradam/anyk>
 Az ubuntu multiplatform (amd64, arm64) imagek igény szerint elérhetőek 3 féle desktop felülettel (Xfce, KDE és MATE) a kővetkező image tag-ekkel a `reisingeradam/anyk` DockerHub repositoryban:
 
 | Leírás                                                                                                                                                                                                                                                                  | Xfce                     | KDE                     | MATE                     |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------|--------------------------|
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ----------------------- | ------------------------ |
 | [ÁNYK](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/AbevJava)                                                                                                                                               | `base-ubuntu-xfce`       | `base-ubuntu-kde`       | `base-ubuntu-mate`       |
 | [ÁNYK és 19HIPA (2019-es Helyi iparűzési adó)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/19HIPA)                                                                                                        | `nav19hipa-ubuntu-xfce`  | `nav19hipa-ubuntu-kde`  | `nav19hipa-ubuntu-mate`  |
 | [ÁNYK és 20HIPA (2020-as Helyi iparűzési adó)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/20HIPA)                                                                                                        | `nav20hipa-ubuntu-xfce`  | `nav20hipa-ubuntu-kde`  | `nav20hipa-ubuntu-mate`  |
@@ -46,3 +46,9 @@ Ha van egy `.xml` fájlod, amit be akarsz importálni, azt így lehet: `docker r
 Csatlakozz a container-hez távoli asztallal. A "számítógép" címe `localhost:3390`.
 
 Felhasználónév/jelszó: `abc`/`abc`.
+
+### seccomp beállítás
+
+Egyes esetekben szükséges lehet megadni egy extra paramétert a container sikeres futtatásához, lásd <https://github.com/Res42/anyk-docker/issues/98>.
+
+A példa parancsok ekkor így néznek ki: `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:base-ubuntu-xfce` vagy `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
