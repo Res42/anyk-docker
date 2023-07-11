@@ -18,12 +18,6 @@ jobs:
               path: "",
             },
             {
-              rovidnev: "OEP_igenylolap_eu_kartyahoz",
-              source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
-              namePrefix: "",
-              path: "plugin/",
-            },
-            {
               rovidnev: "OEP_egt_tagallam",
               source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
               namePrefix: "",
