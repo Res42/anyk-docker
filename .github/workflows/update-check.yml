@@ -68,7 +68,7 @@ jobs:
 
       - name: Get host URL for repository
         id: remote_host
-        uses: mavrosxristoforos/get-xml-info@1.1.1
+        uses: mavrosxristoforos/get-xml-info@1.2.0
         with:
           xml-file: 'repository.xml'
           xpath: '/adat/keretprogram/url'
@@ -76,7 +76,7 @@ jobs:
       - name: Get latest version number for base
         if: matrix.target.rovidnev == 'base'
         id: remote_version_base
-        uses: mavrosxristoforos/get-xml-info@1.1.1
+        uses: mavrosxristoforos/get-xml-info@1.2.0
         with:
           xml-file: 'repository.xml'
           xpath: '/adat/keretprogram/verzio'
@@ -84,7 +84,7 @@ jobs:
       - name: Get latest download URL for base
         if: matrix.target.rovidnev == 'base'
         id: remote_url_base
-        uses: mavrosxristoforos/get-xml-info@1.1.1
+        uses: mavrosxristoforos/get-xml-info@1.2.0
         with:
           xml-file: 'repository.xml'
           xpath: '/adat/keretprogram/files/file'
@@ -92,7 +92,7 @@ jobs:
       - name: Get latest version number for the plugin
         if: matrix.target.rovidnev != 'base'
         id: remote_version_plugin
-        uses: mavrosxristoforos/get-xml-info@1.1.1
+        uses: mavrosxristoforos/get-xml-info@1.2.0
         with:
           xml-file: 'repository.xml'
           # checking 'kategoria' to filter out the help files
@@ -101,7 +101,7 @@ jobs:
       - name: Get latest download URL for the plugin
         if: matrix.target.rovidnev != 'base'
         id: remote_url_plugin
-        uses: mavrosxristoforos/get-xml-info@1.1.1
+        uses: mavrosxristoforos/get-xml-info@1.2.0
         with:
           xml-file: 'repository.xml'
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/files/file'
