@@ -168,7 +168,7 @@ jobs:
         shell: bash
 
       - name: Push latest check time
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update latest version check time
           branch: bot/keepalive-update-check
