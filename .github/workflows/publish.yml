@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Build and publish the ${{ matrix.base }} ${{ matrix.desktop }} image
-        uses: docker/bake-action@v4.0.0
+        uses: docker/bake-action@v4.1.0
         with:
           files: build/${{ matrix.base }}.yml
           push: true
@@ -90,7 +90,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Build and publish the ${{ matrix.plugin }} ${{ matrix.desktop }} image
-        uses: docker/bake-action@v4.0.0
+        uses: docker/bake-action@v4.1.0
         with:
           files: build/plugin/${{ matrix.plugin }}.yml
           push: true
