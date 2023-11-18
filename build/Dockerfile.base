@@ -9,7 +9,7 @@ RUN apt-get update && apt-get --only-upgrade -y install firefox ca-certificates 
     && apt-get install -y openjdk-8-jre \
     && ln -fs /usr/share/zoneinfo/Europe/Budapest /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
-    && apt-get autoremove && apt-get clean -y && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /var/log/*
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /var/log/*
 
 RUN echo "Installing..." \
     # Create 'Desktop' folder for user 'root' so the ANYK installer can create a shortcut there
