@@ -19,4 +19,4 @@ services:
       args:
         DESKTOP: ${DESKTOP}
         DOWNLOAD_URL: https://nav.gov.hu/data/63029/abevjava_install.jar
-        DOWNLOAD_VERSION: 3.27.0
+        DOWNLOAD_VERSION: 3.28.0
