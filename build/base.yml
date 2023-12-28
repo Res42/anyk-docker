@@ -15,7 +15,8 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
-      dockerfile: build/Dockerfile.base
+      target: base
+      dockerfile: build/Dockerfile
       args:
         DESKTOP: ${DESKTOP}
         DOWNLOAD_URL: https://nav.gov.hu/data/63029/abevjava_install.jar

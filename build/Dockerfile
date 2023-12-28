@@ -1,6 +1,6 @@
 ARG DESKTOP
 
-FROM lscr.io/linuxserver/rdesktop:ubuntu-$DESKTOP
+FROM lscr.io/linuxserver/rdesktop:ubuntu-$DESKTOP AS base
 
 ARG DOWNLOAD_URL
 
@@ -36,3 +36,14 @@ RUN echo "[Desktop Entry]" > /etc/xdg/autostart/setxkbmap.desktop \
     && echo "Hidden=false" >> /etc/xdg/autostart/setxkbmap.desktop \
     && echo "X-MATE-Autostart-enabled=true" >> /etc/xdg/autostart/setxkbmap.desktop \
     && echo "Exec=setxkbmap -layout hu -model pc105" >> /etc/xdg/autostart/setxkbmap.desktop
+
+FROM reisingeradam/anyk:base-ubuntu-$DESKTOP AS plugin
+
+ARG DOWNLOAD_URL
+
+RUN curl $DOWNLOAD_URL -o ~/plugin.jar \
+    # -s: silent (non-gui) install
+    && java -jar ~/plugin.jar -s \
+    && rm ~/plugin.jar \
+    # Change rights to default user
+    && chown -R abc:abc /usr/share/abevjava/
