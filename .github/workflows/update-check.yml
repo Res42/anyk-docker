@@ -64,7 +64,7 @@ jobs:
           ref: 'master'
 
       - name: Download repository index
-        run: curl -L ${{ matrix.target.source }} -o repository.xml
+        run: aria2c -x 2 -o repository.xml ${{ matrix.target.source }}
 
       - name: Get host URL for repository
         id: remote_host
