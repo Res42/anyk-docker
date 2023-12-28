@@ -15,7 +15,8 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
-      dockerfile: build/plugin/Dockerfile.plugin
+      target: plugin
+      dockerfile: build/Dockerfile
       args:
         DESKTOP: ${DESKTOP}
         DOWNLOAD_URL: https://hkp.neak.gov.hu/nyomtatvanyok/OEP_egt_tagallam_1_14.jar

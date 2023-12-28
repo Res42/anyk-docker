@@ -15,7 +15,8 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
-      dockerfile: build/plugin/Dockerfile.plugin
+      target: plugin
+      dockerfile: build/Dockerfile
       args:
         DESKTOP: ${DESKTOP}
         DOWNLOAD_URL: https://nav.gov.hu/data/109041/NAV_22HIPAK.jar
