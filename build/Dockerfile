@@ -24,8 +24,6 @@ RUN echo "Installing..." \
     && chown -R abc:abc /usr/share/abevjava/ \
     && chown -R abc:abc /root/.abevjava/ \
     && chown abc:abc /etc/abevjavapath.cfg \
-    # Create 'Desktop' folder for default user
-    && mkdir /config/Desktop \
     # Copy the ANYK shortcut to the user Desktop
     && cp ~/Desktop/ÁNYK.desktop /config/Desktop/
 
