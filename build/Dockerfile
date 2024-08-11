@@ -13,7 +13,7 @@ RUN apt-get update && apt-get --only-upgrade -y install firefox ca-certificates 
 
 RUN echo "Installing..." \
     # Create 'Desktop' folder for user 'root' so the ANYK installer can create a shortcut there
-    && mkdir ~/Desktop \
+    && mkdir /root/Desktop \
     # Download and install ANYK
     && curl $DOWNLOAD_URL -o ~/abevjava_install.jar \
     # -s: silent (non-gui) install
@@ -24,8 +24,10 @@ RUN echo "Installing..." \
     && chown -R abc:abc /usr/share/abevjava/ \
     && chown -R abc:abc /root/.abevjava/ \
     && chown abc:abc /etc/abevjavapath.cfg \
+    # Create 'Desktop' folder for default user
+    && mkdir /config/Desktop \
     # Copy the ANYK shortcut to the user Desktop
-    && cp ~/Desktop/ÁNYK.desktop /config/Desktop/
+    && cp /root/Desktop/ÁNYK.desktop /config/Desktop/
 
 RUN echo "[Desktop Entry]" > /etc/xdg/autostart/setxkbmap.desktop \
     && echo "Type=Application" >> /etc/xdg/autostart/setxkbmap.desktop \
