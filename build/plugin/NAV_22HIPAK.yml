@@ -20,4 +20,4 @@ services:
       args:
         DESKTOP: ${DESKTOP}
         DOWNLOAD_URL: https://nav.gov.hu/data/109041/NAV_22HIPAK.jar
-        DOWNLOAD_VERSION: '27.0'
+        DOWNLOAD_VERSION: '28.0'
