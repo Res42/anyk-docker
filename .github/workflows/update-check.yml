@@ -134,7 +134,7 @@ jobs:
 
       - name: Update ${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}
         if: (steps.remote_version.outputs.remote_version > steps.local_version.outputs.local_version) || (steps.remote_url.outputs.download_url != steps.local_url.outputs.local_url)
-        uses: fjogeleit/yaml-update-action@v0.15.0
+        uses: fjogeleit/yaml-update-action@v0.16.0
         with:
           valueFile: 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml'
           commitChange: false
