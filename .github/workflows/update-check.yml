@@ -54,6 +54,12 @@ jobs:
               path: "plugin/",
             },
             {
+              rovidnev: "24HIPAK",
+              source: "https://nav.gov.hu/api/declarationForms/anyk",
+              namePrefix: "NAV_",
+              path: "plugin/",
+            },
+            {
               rovidnev: "IGAZOL",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
