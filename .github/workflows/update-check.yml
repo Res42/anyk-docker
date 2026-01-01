@@ -3,7 +3,7 @@ name: Check for ANYK base and plugin updates
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   update-check:
@@ -16,12 +16,6 @@ jobs:
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "",
               path: "",
-            },
-            {
-              rovidnev: "OEP_egt_tagallam",
-              source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
-              namePrefix: "",
-              path: "plugin/",
             },
             {
               rovidnev: "19HIPA",
@@ -73,7 +67,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          ref: 'master'
+          ref: "master"
 
       - name: Download repository index
         run: aria2c -x 2 -o repository.xml ${{ matrix.target.source }}
@@ -82,31 +76,31 @@ jobs:
         id: remote_host
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: 'repository.xml'
-          xpath: '/adat/keretprogram/url'
+          xml-file: "repository.xml"
+          xpath: "/adat/keretprogram/url"
 
       - name: Get latest version number for base
         if: matrix.target.rovidnev == 'base'
         id: remote_version_base
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: 'repository.xml'
-          xpath: '/adat/keretprogram/verzio'
+          xml-file: "repository.xml"
+          xpath: "/adat/keretprogram/verzio"
 
       - name: Get latest download URL for base
         if: matrix.target.rovidnev == 'base'
         id: remote_url_base
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: 'repository.xml'
-          xpath: '/adat/keretprogram/files/file'
+          xml-file: "repository.xml"
+          xpath: "/adat/keretprogram/files/file"
 
       - name: Get latest version number for the plugin
         if: matrix.target.rovidnev != 'base'
         id: remote_version_plugin
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: 'repository.xml'
+          xml-file: "repository.xml"
           # checking 'kategoria' to filter out the help files
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/verzio'
 
@@ -115,7 +109,7 @@ jobs:
         id: remote_url_plugin
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: 'repository.xml'
+          xml-file: "repository.xml"
           xpath: '/adat/nyomtatvany[kategoria="Template"][rovidnev="${{ matrix.target.rovidnev }}"]/files/file'
 
       - name: Process remote version
@@ -142,7 +136,7 @@ jobs:
         if: (steps.remote_version.outputs.remote_version > steps.local_version.outputs.local_version) || (steps.remote_url.outputs.download_url != steps.local_url.outputs.local_url)
         uses: fjogeleit/yaml-update-action@v0.16.1
         with:
-          valueFile: 'build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml'
+          valueFile: "build/${{ matrix.target.path }}${{ matrix.target.namePrefix }}${{ matrix.target.rovidnev }}.yml"
           commitChange: false
           changes: |
             {
@@ -171,7 +165,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          ref: 'master'
+          ref: "master"
 
       - name: Update check time
         run: echo $(date -u) > '.github/update-check-time.txt'
@@ -183,8 +177,8 @@ jobs:
           commit_message: Update latest version check time
           branch: bot/keepalive-update-check
           create_branch: true
-          push_options: '--force'
+          push_options: "--force"
           commit_user_name: github-actions[bot]
           commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          file_pattern: '.github/update-check-time.txt'
+          file_pattern: ".github/update-check-time.txt"
