@@ -34,15 +34,16 @@ The ubuntu multiplatform (amd64, arm64) images are available with 3 different de
 | [ÁNYK and 22HIPAK (Local business tax for 2022)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/22hipak)                                                                                            | `nav22hipak-ubuntu-xfce`                                                                 | `nav22hipak-ubuntu-kde` | `nav22hipak-ubuntu-mate` |
 | [ÁNYK and 23HIPAK (Local business tax for 2023)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/23HIPAK)                                                                                            | `nav23hipak-ubuntu-xfce`                                                                 | `nav23hipak-ubuntu-kde` | `nav23hipak-ubuntu-mate` |
 | [ÁNYK and 24HIPAK (Local business tax for 2024)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/24HIPAK)                                                                                            | `nav24hipak-ubuntu-xfce`                                                                 | `nav24hipak-ubuntu-kde` | `nav24hipak-ubuntu-mate` |
+| [ÁNYK and 25HIPAK (Local business tax for 2025)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/25HIPAK)                                                                                            | `nav25hipak-ubuntu-xfce`                                                                 | `nav25hipak-ubuntu-kde` | `nav25hipak-ubuntu-mate` |
 | [ANYK and IGAZOL (Tax agency certificates)](https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvanykitolto_programok_nav/igazol)                                                                                                  | `navigazol-ubuntu-xfce`                                                                  | `navigazol-ubuntu-kde`  | `navigazol-ubuntu-mate`  |
 | [ANYK and OEP-EGT-TAGALLAM (Form for a Hungarian citizen with a TAJ number who is an insured person in an EEA member state)](https://neak.gov.hu/felso_menu/lakossagnak/ellatas_magyarorszagon/jogosultsag_az_ellatasra/kulfoldon_munkat_vallalok_bejelentese) | [Available online](https://mo.hu/szuf_ugyleiras?id=9a147fed-47f4-45c7-8f3a-e18d2e8bb035) | Removed                 | -                        |
 | [ANYK and OEPEUCARD (European Health Insurance Card)](https://neak.gov.hu/felso_menu/lakossagnak/ellatas_kulfoldon/az_europai_egeszsegbiztositasi_kartya)                                                                                                      | [Available online](https://mo.hu/szuf_ugyleiras?id=8a523149-1ef3-4270-8462-c12585cafbc9) | Removed                 | -                        |
 
 ## How to use
 
-Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:base-ubuntu-xfce` or `docker run -p 3390:3389 reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
+Run the following command: `docker run -p 3390:3389 reisingeradam/anyk:base-ubuntu-xfce` or `docker run -p 3390:3389 reisingeradam/anyk:nav25hipak-ubuntu-xfce`.
 
-Or if you have a `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/config/<file name>" reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
+Or if you have a `.xml` file to import into the ÁNYK: `docker run -p 3390:3389 -v "<absolute path to the xml file>:/config/<file name>" reisingeradam/anyk:nav25hipak-ubuntu-xfce`.
 With this the XML will be in the root home directory.
 
 Connect with a remote desktop app to `localhost:3390` (the port may be changed in the docker run command or in the docker-compose.yml).
@@ -53,4 +54,4 @@ User/password: `abc`/`abc`.
 
 In some cases an extra parameter is needed to properly run the container, see <https://github.com/Res42/anyk-docker/issues/98>.
 
-The example commands with this new parameter: `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:base-ubuntu-xfce` or `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:nav22hipak-ubuntu-xfce`.
+The example commands with this new parameter: `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:base-ubuntu-xfce` or `docker run -p 3390:3389 --security-opt seccomp=unconfined reisingeradam/anyk:nav25hipak-ubuntu-xfce`.
