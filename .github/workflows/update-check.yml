@@ -18,12 +18,6 @@ jobs:
               path: "",
             },
             {
-              rovidnev: "OEP_egt_tagallam",
-              source: "https://hkp.neak.gov.hu/nyomtatvanyok/",
-              namePrefix: "",
-              path: "plugin/",
-            },
-            {
               rovidnev: "19HIPA",
               source: "https://nav.gov.hu/api/declarationForms/anyk",
               namePrefix: "NAV_",
